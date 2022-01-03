@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
-const AUTH_API = 'http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/api/auth/';
+const AUTH_API = 'http://localhost:7777/api/auth/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class AuthService {
 
-  // this AuthService was created to keep track of 
+  // this AuthService was created to keep track of
       // 1) whether a user has logged in or not
       // 2) the user who has logged in and manipulate it in the session storage
   isLoggedIn: boolean = false;

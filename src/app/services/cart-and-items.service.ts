@@ -8,7 +8,7 @@ import { CartAndItems } from '../models/cart.model';
 })
 export class CartAndItemsService {
 
-  baseUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/api/cart-and-items";
+  baseUrl = "http://localhost:7777/api/cart-and-items";
 
   constructor(private http: HttpClient) { }
 
