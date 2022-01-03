@@ -11,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./store-product.component.scss']
 })
 export class StoreProductComponent implements OnInit {
-  //Arrays, Objects, & string  
+  //Arrays, Objects, & string
   allProducts: Product[] = [];
   allDiscountProducts: ProductAndDiscount[] = [];
   indexArray: number[] = [];
@@ -103,7 +103,13 @@ export class StoreProductComponent implements OnInit {
 
   //-----Example A function to search product(s) on sale
   productOnSale() {
-    //do something or get by a speciific discount/sale endpoint 
+    //do something or get by a speciific discount/sale endpoint
 
   }
+
+  goToProduct(productId: number) {
+    this.router.navigate(['product-page/' + productId]);
+  }
+
+
 }
