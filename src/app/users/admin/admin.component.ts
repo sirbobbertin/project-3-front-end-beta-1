@@ -70,7 +70,6 @@ export class AdminComponent implements OnInit {
     })
     //Load all Products
     this.loadDiscountProducts();
-    this.loadProducts();
   }
   //Load all all Products
   loadProducts() {
@@ -225,6 +224,7 @@ export class AdminComponent implements OnInit {
     this.productService.getAllDiscountsProductsService().subscribe(
       (response) => {
         this.allDiscountProducts = response;
+        this.loadProducts();
         console.log(response);
       },
       (error) => {
