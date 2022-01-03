@@ -8,7 +8,7 @@ import { ProductAndDiscount } from '../models/product.model';
 })
 export class ProductAndDiscountService {
 
-  baseUrl = "http://localhost:7777/api/product-discount";
+  baseUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/api/product-discount";
 
   constructor(private http: HttpClient) { }
 
