@@ -1,9 +1,9 @@
-// import { TimestampProvider } from "rxjs";
+import { TimestampProvider } from "rxjs";
 
 export class Transaction {
 
-    // transactionId: number = 0;
-    // // @ts-ignore
-    // transactionDate: TimestampProvider;
-    // cartId: number = 0;
+    transactionId: number = 0;
+    // @ts-ignore
+    transactionDate: TimestampProvider;
+    cartId: number = 0;
 }
