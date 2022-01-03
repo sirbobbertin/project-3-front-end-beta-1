@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class CartService {
 
-  baseUrl = "http://localhost:7777/api/cart";
+  baseUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/api/cart";
 
   constructor(private http: HttpClient) { }
 
