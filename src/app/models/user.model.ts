@@ -8,5 +8,6 @@ export class User {
     userLastName: string = "";
     userAddress: string = "";
     userType: string = "";
+    userContact: string = "";
     userRemoved: boolean = false;
 }
