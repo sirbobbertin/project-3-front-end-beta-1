@@ -25,12 +25,12 @@
   <ng-template #loggedOut>
     Please login.
   </ng-template> -->
-
+ 
   <div class="container bootstrap snippets bootdey">
     <div class="panel-body inf-content">
         <div class="row">
             <div class="col-md-4">
-                <img alt="" style="width:200px;" title="" class="img-circle img-thumbnail isTooltip" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" data-original-title="Usuario">
+                <img alt="" style="width:200px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
             </div>
             <div class="col-md-6">
                 <strong>User Information</strong><br>
@@ -38,21 +38,14 @@
                 <table class="table table-user-information">
                     <tbody>
                         <tr>        
-                            <td>
-                                <strong>
-                                    <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                    ID #:                                                
-                                </strong>
-                            </td>
-                            <td class="text-primary">
-                                {{mainUser.userId}} 
-                            </td>
+                        
                         </tr>
                         <tr>    
                             <td>
                                 <strong>
                                     <span class="glyphicon glyphicon-user  text-primary"></span>    
-                                    First Name                                                
+                                    First Name: {{ first_name }}
+                                                
                                 </strong>
                             </td>
                             <td class="text-primary">
@@ -63,7 +56,7 @@
                             <td>
                                 <strong>
                                     <span class="glyphicon glyphicon-cloud text-primary"></span>  
-                                    Last Name                                                
+                                    Last Name : {{ first_name }}                                                
                                 </strong>
                             </td>
                             <td class="text-primary">
@@ -75,7 +68,7 @@
                             <td>
                                 <strong>
                                     <span class="glyphicon glyphicon-bookmark text-primary"></span> 
-                                    Username                                                
+                                    Username: {{ username }}                                                
                                 </strong>
                             </td>
                             <td class="text-primary">
@@ -86,17 +79,40 @@
                             <td>
                                 <strong>
                                     <span class="glyphicon glyphicon-envelope text-primary"></span> 
-                                    Email:                                              
+                                    Email: {{ email }} 
                                 </strong>
                             </td>
                             <td class="text-primary">
                                 {{mainUser.userEmail}}
                             </td>
-                        </tr>                   
+                        </tr>     
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-envelope text-primary"></span> 
+                                    Address: {{ address }} 
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{mainUser.userAddress}}
+                            </td>
+                        </tr>  
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-envelope text-primary"></span> 
+                                    Contact: {{ contact }} 
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{mainUser.userContact}}
+                            </td>
+                        </tr> 
+                                     
                     </tbody>
                 </table>
                 </div>
             </div>
         </div>
     </div>
-    </div>                                       
+    </div>  
