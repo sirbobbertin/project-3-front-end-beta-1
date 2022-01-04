@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product, ProductAndDiscount } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
-import {Cart, CartAndItems, CartItem} from "../../models/cart.model";
-import {TokenStorageService} from "../../services/token-storage.service";
-import {CartItemService} from "../../services/cart-item.service";
-import {CartAndItemsService} from "../../services/cart-and-items.service";
+import { Cart, CartAndItems, CartItem } from "../../models/cart.model";
+import { TokenStorageService } from "../../services/token-storage.service";
+import { CartItemService } from "../../services/cart-item.service";
+import { CartAndItemsService } from "../../services/cart-and-items.service";
 // import * as internal from 'stream';
 
 @Component({
@@ -25,7 +25,6 @@ export class StoreProductComponent implements OnInit {
   saveIndex: number = 0;
   userId: any = 0;
   cartAndItems: CartAndItems = new CartAndItems()
-
 
   //Array for Form Fields to add new Product
   newProduct: Product = {
@@ -60,7 +59,7 @@ export class StoreProductComponent implements OnInit {
     private router: Router,
     private formbuilder: FormBuilder,
     private productService: ProductService,
-    private tokenService:TokenStorageService,
+    private tokenService: TokenStorageService,
     private cartAndItemsService: CartAndItemsService,
     private cartItemService: CartItemService) { }
 
@@ -82,7 +81,7 @@ export class StoreProductComponent implements OnInit {
           for (let index2 = 0; index2 < response.length; index2++) {
             if (this.allDiscountProducts[index].productId == response[index2].productId) {
               this.indexArray[this.saveIndex] = index;
-              response.splice(index2,1);
+              response.splice(index2, 1);
             }
           }
         }
@@ -149,7 +148,6 @@ export class StoreProductComponent implements OnInit {
       }
     });
   }
-
 
 
 }
