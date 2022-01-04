@@ -303,7 +303,7 @@ export class AdminComponent implements OnInit {
 
   //Automatically generate random string for Product SKU
   getRandomString() {
-    let randomChars = 'AB2C13EH45IJK67LM8PR9STVWXY';
+    let randomChars = 'AB2C13EH45IK67LM8PR9SXY';
     let result = '';
     for ( var i = 0; i < randomChars.length; i++ ) {
         result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
