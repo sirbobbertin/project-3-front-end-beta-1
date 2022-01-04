@@ -61,7 +61,8 @@ export class AdminComponent implements OnInit {
 
     this.formValueDiscount = this.formbuilder.group({
       discount_percentage: [''],
-      discount_description: ['']
+      discount_description: [''],
+      product_id: ['']
     })
 
     this.formValueDiscountUpdate = this.formbuilder.group({
@@ -124,6 +125,8 @@ export class AdminComponent implements OnInit {
         (error) => {
           console.log(error);
         })
+
+      alert("Product was added Successfully");
       //Close the Form Automatically
       let ref = document.getElementById("cancel");
       ref?.click();
@@ -162,7 +165,7 @@ export class AdminComponent implements OnInit {
     //add more later if needed
     this.productService.updateProductsService(this.productObject).subscribe(
       (response) => {
-
+        alert("Product was updated Successfully");
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
         //Close the Form Automatically
@@ -228,9 +231,10 @@ export class AdminComponent implements OnInit {
   addDiscountProducts() {
     this.newDiscount.discountPercentage = this.formValueDiscount.value.discount_percentage;
     this.newDiscount.discountDescription = this.formValueDiscount.value.discount_description;
+    this.newDiscount.productId = this.formValueDiscount.value.product_id;
 
     //recieves the productID from OnEditRow(row)
-    this.newDiscount.productId = this.productObject.productId;
+    // this.newDiscount.productId = this.productObject.productId;
 
     // Let's post the data through the post request in service
     this.productService.addDiscountService(this.newDiscount).subscribe(
@@ -241,6 +245,7 @@ export class AdminComponent implements OnInit {
       (error) => {
         console.log(error);
       })
+    alert("Discounted was added Successfully");
     //Close the Form Automatically
     let ref = document.getElementById("cancel");
     ref?.click();
@@ -260,6 +265,7 @@ export class AdminComponent implements OnInit {
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
         //Close the Form Automatically
+        alert("Discount was updated Successfully");
         let ref = document.getElementById("cancel");
         ref?.click();
         this.formValueDiscount.reset();
