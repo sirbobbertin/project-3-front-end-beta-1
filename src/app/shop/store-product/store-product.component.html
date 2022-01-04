@@ -40,7 +40,7 @@
                 <p class="card-text">{{row.productCost | currency}}</p>
                 <!-- <p id="bold-category" class="card-text">{{row.productCategory}}</p> -->
                 <p class="card-text" class="parLength">{{row.productDescription}}</p>
-                <p><button class="btn-danger">Add to Cart</button></p>
+                <p><button class="btn-danger" (click)="addToCart(row.productId)">Add to Cart</button></p>
                 <small class="text-muted">{{row.productSku}}</small>
               </div>
             </div>
