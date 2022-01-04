@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class FileUploadService {
 
   public files: any[] = [];
-  baseUrl = "http://localhost:7777/file";
+  baseUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/file";
 
 
   constructor(private http: HttpClient) {

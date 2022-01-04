@@ -8,9 +8,9 @@ import { Discount, Product, ProductAndDiscount } from '../models/product.model';
 })
 export class ProductService {
   //products endpoints
-  productsUrl = "http://localhost:7777/api/products";
-  productsUrl2 = "http://localhost:7777/combined/Disc/Products";
-  discountUrl = "http://localhost:7777/discounts";
+  productsUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/api/products";
+  productsUrl2 = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/combined/Disc/Products";
+  discountUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/discounts";
 
   // add other endpoints below if needed
 
