@@ -67,6 +67,7 @@ export class StoreProductComponent implements OnInit {
     //add code for the update
 
     this.userId = this.tokenService.getUser().user_id;
+    this.loadCart();
     this.loadDiscountedProducts();
   }
 

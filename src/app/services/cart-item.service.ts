@@ -10,7 +10,7 @@ import { CartItem } from '../models/cart.model';
 
 export class CartItemService {
 
-  baseUrl = "http://ec2-50-16-74-43.compute-1.amazonaws.com:7777/api/cart-items";
+  baseUrl = "http://localhost:7777/api/cart-items";
 
   constructor(private http: HttpClient) { }
 
