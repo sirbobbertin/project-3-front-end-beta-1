@@ -94,10 +94,7 @@ export class AdminComponent implements OnInit {
   }
 
   public uploadImage(imageInput: any) {
-    const reader = new FileReader(); console.log(reader);
-
-    console.log(imageInput.files[0]);
-    this.fileUploadService.onUpload(imageInput.files[0]).subscribe({
+    this.fileUploadService.onUpload(imageInput.target.files[0]).subscribe({
       next: async (response) => {
 
         this.productObject.imageUrl = response;
@@ -123,14 +120,10 @@ export class AdminComponent implements OnInit {
       this.productService.addProductsService(this.newProduct).subscribe(
         (response) => {
           this.loadProducts();
-          console.log("James Testing addProducts");
-          console.log(response);
         },
         (error) => {
           console.log(error);
         })
-      //for testing removed later
-      // alert("Product was added Successfully");
       //Close the Form Automatically
       let ref = document.getElementById("cancel");
       ref?.click();
@@ -149,7 +142,7 @@ export class AdminComponent implements OnInit {
     this.formValue.controls["product_category"].setValue(row.productCategory);
     this.formValue.controls["product_description"].setValue(row.productDescription);
     this.formValue.controls["product_qty"].setValue(row.productQty);
-    this.formValue.controls["image_url"].setValue("");
+    this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
     console.log(row.productName);
     console.log(row.productCategory);
 
@@ -169,11 +162,9 @@ export class AdminComponent implements OnInit {
     //add more later if needed
     this.productService.updateProductsService(this.productObject).subscribe(
       (response) => {
-        //for testing remove later
-        console.log(response);
+
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
-        // alert("Product was updated successfully");
         //Close the Form Automatically
         let ref = document.getElementById("cancel");
         ref?.click();
@@ -246,13 +237,10 @@ export class AdminComponent implements OnInit {
       (response) => {
         this.loadDiscountProducts();
         this.loadProducts();
-        console.log(response);
       },
       (error) => {
         console.log(error);
       })
-    //for testing removed later
-    // alert("Product was added Successfully");
     //Close the Form Automatically
     let ref = document.getElementById("cancel");
     ref?.click();
@@ -271,7 +259,6 @@ export class AdminComponent implements OnInit {
       (response) => {
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
-        //alert("Discount was updated successfully");
         //Close the Form Automatically
         let ref = document.getElementById("cancel");
         ref?.click();
