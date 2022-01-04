@@ -104,15 +104,6 @@ export class CheckoutComponent implements OnInit {
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
     });
-    this.cart.userId = this.cartAndItems.userId
-    this.cart.cartTotal = 0;
-    this.cart.cartRemoved = false
-    this.cart.cartPaid = false
-    // this.cartService.addCartService(this.cart).subscribe((response) => {
-    //   response;
-    // }, error => {
-    //   this.errorMsg = 'There was some internal error! Please try again later!';
-    // });
     this.transaction.cartId = this.cartAndItems.cartId;
     this.transaction.transactionId = null;
     this.transaction.transactionDate = null;
