@@ -75,5 +75,5 @@ Scrum Master: Michelle Ng
 
 Team Leads: Rowel Selidio, James Lemaire, Aimen Altaiyeb
 
-Team Members: Derrice Wright, Tulika Ghosh, Anthony Johnson, Austin Noel, Tareeq Hamilton, Sameh Botros (edited) 
+Team Members: Derrice Wright, Tulika Ghosh, Anthony Johnson, Austin Noel, Tareeq Hamilton, Sameh Botros
 
