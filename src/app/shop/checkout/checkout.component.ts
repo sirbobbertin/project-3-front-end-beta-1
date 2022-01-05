@@ -106,7 +106,7 @@ export class CheckoutComponent implements OnInit {
     this.intervalId = setInterval(() => {
       this.displayStyle = "none";
       this.router.navigate(['/product']);
-    }, 1000);
+    }, 2000);
   }
   ngOnDestroy() {
     if(this.intervalId) {
