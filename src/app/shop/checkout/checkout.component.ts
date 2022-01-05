@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { CartAndItems, Cart, ItemProductAndDiscount, CartItem } from 'src/app/models/cart.model';
-import { ProductAndDiscount } from 'src/app/models/product.model';
+import {Product, ProductAndDiscount} from 'src/app/models/product.model';
 import { CartAndItemsService } from 'src/app/services/cart-and-items.service';
 import { CartItemService } from 'src/app/services/cart-item.service';
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -9,15 +9,13 @@ import {Transaction} from "../../models/transaction.model";
 import {AuthService} from "../../services/auth.service";
 import {CartService} from "../../services/cart.service";
 import {TokenStorageService} from "../../services/token-storage.service";
-
-
+import {ProductService} from "../../services/product.service";
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-
   productAndDiscount: ProductAndDiscount = new ProductAndDiscount();
   transaction: Transaction = new Transaction();
   cartAndItems: CartAndItems = new CartAndItems();
@@ -29,12 +27,11 @@ export class CheckoutComponent implements OnInit {
   itemUpdating: CartItem = new CartItem();
   userId: number = 0;
 
-
-
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private cartAndItemsService: CartAndItemsService, private transactionService: TransactionService,
               private authService: AuthService, private cartService: CartService, private cartItemService: CartItemService,
-              private tokenService: TokenStorageService) { }
+              private tokenService: TokenStorageService,
+              private productService: ProductService) { }
 
   ngOnInit(): void {
     //Line below from authService is not working.
@@ -43,8 +40,6 @@ export class CheckoutComponent implements OnInit {
     if(this.userId <= 0) this.userId = 1; //Remove this line if not testing
     this.displayAllCarts()
   }
-
-
   displayAllCarts() {
     //var cartId: any = this.activatedRoute.snapshot.paramMap.get("cartId");
     this.cartAndItemsService.getCartAndItemsWithUserIdService(this.userId).subscribe((response) => {
@@ -54,7 +49,6 @@ export class CheckoutComponent implements OnInit {
       console.log(error);
     });
   }
-
   getItemsTotal(): any {
     let total = 0;
     this.cartAndItems.cartItems.forEach((value, index) => {
@@ -62,14 +56,12 @@ export class CheckoutComponent implements OnInit {
     });
     return total.toFixed(2);
   }
-
   remove(productId: number) {
     this.cartItemService.removeItemService(productId).subscribe({
       next: response => {
         this.displayAllCarts();
       },
       error: err => {
-
       }
     })
   }
@@ -85,12 +77,9 @@ export class CheckoutComponent implements OnInit {
         this.displayAllCarts();
       },
       error: err => {
-
       }
     });
   }
-
-
   proceedToCheckout() {
     this.cart.cartId = this.cartAndItems.cartId
     this.cart.userId = this.cartAndItems.userId
@@ -111,17 +100,15 @@ export class CheckoutComponent implements OnInit {
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
     });
+    this.updateMultiProducts();
     setInterval(() => {
       this.displayStyle = "none";
       this.router.navigate(['/product']);
     }, 5000);
   }
-
-
   ngOnDestroy() {
     clearInterval();
   }
-
   calculateDiscountedItemCost(product: ProductAndDiscount): number {
     let cost = product.productCost;
     let discountPercentage = product.discountPercentage;
@@ -130,15 +117,38 @@ export class CheckoutComponent implements OnInit {
   calculateSingleItemCost(product: ProductAndDiscount): number {
     return product.productCost;
   }
-
   calculateTotalSavings(product: ProductAndDiscount): number {
     let cost = product.productCost;
     let discountPercentage = product.discountPercentage;
     return cost * (discountPercentage);
   }
-
   calculateTotalCost(item: ItemProductAndDiscount, calcSingleItem: any) {
     return item.cartQty * calcSingleItem(item.productAndDiscount);
   }
 
+  updateMultiProducts() {
+    this.cartAndItems.cartItems.forEach( (item) => {
+      let tempProduct = this.toProductModel(item);
+      tempProduct.productQty = tempProduct.productQty - item.cartQty;
+      this.productService.updateProductsService(tempProduct).subscribe({
+        next: response => {
+        },
+        error: err => {
+        }
+      })
+    });
+  }
+  toProductModel(item: ItemProductAndDiscount) {
+    let product = new Product();
+    product.productId = item.productAndDiscount.productId;
+    product.productCost = item.productAndDiscount.productCost;
+    product.productQty = item.productAndDiscount.productQty;
+    product.productSku = item.productAndDiscount.productSku;
+    product.imageUrl = item.productAndDiscount.imageUrl;
+    product.productCategory = item.productAndDiscount.productCategory;
+    product.productDescription = item.productAndDiscount.productDescription;
+    product.productName = item.productAndDiscount.productName;
+    product.productRemoved = item.productAndDiscount.productRemoved;
+    return product;
+  }
 }
