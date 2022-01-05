@@ -10,6 +10,7 @@ import {AuthService} from "../../services/auth.service";
 import {CartService} from "../../services/cart.service";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {ProductService} from "../../services/product.service";
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
