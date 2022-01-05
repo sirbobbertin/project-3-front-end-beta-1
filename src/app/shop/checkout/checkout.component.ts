@@ -26,6 +26,7 @@ export class CheckoutComponent implements OnInit {
   displayStyle: string = "";
   itemUpdating: CartItem = new CartItem();
   userId: number = 0;
+  intervalId: any = null;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private cartAndItemsService: CartAndItemsService, private transactionService: TransactionService,
@@ -101,13 +102,15 @@ export class CheckoutComponent implements OnInit {
       this.errorMsg = 'There was some internal error! Please try again later!';
     });
     this.updateMultiProducts();
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.displayStyle = "none";
       this.router.navigate(['/product']);
-    }, 5000);
+    }, 1000);
   }
   ngOnDestroy() {
-    clearInterval();
+    if(this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
   calculateDiscountedItemCost(product: ProductAndDiscount): number {
     let cost = product.productCost;
