@@ -67,7 +67,8 @@ To-do list:
 
 Getting Started
 -----
-git clone `YOUR GITHUB REPO`
+* git clone `https://github.com/revature-rev-tech/project-3-back-end.git`
+* git clone `https://github.com/revature-rev-tech/project-3-front-end-beta.git`
 
 Contributors
 -----
