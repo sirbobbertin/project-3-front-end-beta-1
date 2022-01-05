@@ -63,7 +63,8 @@ export class AdminComponent implements OnInit {
 
     this.formValueDiscount = this.formbuilder.group({
       discount_percentage: [''],
-      discount_description: ['']
+      discount_description: [''],
+      product_id: ['']
     })
 
     this.formValueDiscountUpdate = this.formbuilder.group({
@@ -126,6 +127,8 @@ export class AdminComponent implements OnInit {
         (error: any) => {
           console.log(error);
         })
+
+      alert("Product was added Successfully");
       //Close the Form Automatically
       let ref = document.getElementById("cancel");
       ref?.click();
@@ -159,8 +162,8 @@ export class AdminComponent implements OnInit {
     console.log(this.formValue.value.image_url);
     //add more later if needed
     this.productService.updateProductsService(this.productObject).subscribe(
-      (response: any) => {
-
+      (response) => {
+        alert("Product was updated Successfully");
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
         //Close the Form Automatically
@@ -228,9 +231,10 @@ export class AdminComponent implements OnInit {
   addDiscountProducts() {
     this.newDiscount.discountPercentage = this.formValueDiscount.value.discount_percentage;
     this.newDiscount.discountDescription = this.formValueDiscount.value.discount_description;
+    this.newDiscount.productId = this.formValueDiscount.value.product_id;
 
     //recieves the productID from OnEditRow(row)
-    this.newDiscount.productId = this.productObject.productId;
+    // this.newDiscount.productId = this.productObject.productId;
 
     // Let's post the data through the post request in service
     this.productService.addDiscountService(this.newDiscount).subscribe(
@@ -241,6 +245,7 @@ export class AdminComponent implements OnInit {
       (error: any) => {
         console.log(error);
       })
+    alert("Discounted was added Successfully");
     //Close the Form Automatically
     let ref = document.getElementById("cancel");
     ref?.click();
@@ -260,6 +265,7 @@ export class AdminComponent implements OnInit {
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
         //Close the Form Automatically
+        alert("Discount was updated Successfully");
         let ref = document.getElementById("cancel");
         ref?.click();
         this.formValueDiscount.reset();
@@ -303,7 +309,7 @@ export class AdminComponent implements OnInit {
 
   //Automatically generate random string for Product SKU
   getRandomString() {
-    let randomChars = 'AB2C13EH45IJK67LM8PR9STVWXY';
+    let randomChars = 'AB2C13EH45IK67LM8PR9SXY';
     let result = '';
     for ( var i = 0; i < randomChars.length; i++ ) {
         result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
