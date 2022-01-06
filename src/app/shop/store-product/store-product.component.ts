@@ -61,6 +61,9 @@ export class StoreProductComponent implements OnInit {
     private tokenService: TokenStorageService,
     private cartAndItemsService: CartAndItemsService,
     private cartItemService: CartItemService) { }
+    filteredProducts: Product[] = [];
+    filterFlag: boolean = false;
+    hideFlag: boolean = false;
 
   ngOnInit(): void {
     //add code for the update
@@ -146,6 +149,64 @@ export class StoreProductComponent implements OnInit {
       }
     });
   }
+
+
+  filterByCategory(categoryName: String) {
+    this.filteredProducts = [];
+    this.allProducts.forEach((product) => {
+      if (product.productCategory == categoryName) {this.filteredProducts.push(product)}
+    });
+
+    this.allDiscountProducts.forEach((product) => {
+      if (product.productCategory == categoryName) {this.filteredProducts.push(product)}
+    });
+    this.hideFlag = true;
+    this.filterFlag = true;
+  }
+
+  filterByDiscount() {
+    this.filteredProducts = [];
+    this.allDiscountProducts.forEach((product) => {
+      this.filteredProducts.push(product);
+    });
+    this.hideFlag=true;
+    this.filterFlag=true;
+  }
+
+ 
+
+  unfilter() {
+    this.filterFlag=false;
+    this.filteredProducts = [];
+    sessionStorage.removeItem("searchQuery");
+    this.hideFlag = false;
+  }
+
+  returnQuery() {
+    return sessionStorage.getItem("searchQuery");
+  }
+
+  searchedProducts(searched: string|null) {
+    let returnedSet: Product[] = [];
+    if (searched != null) {
+      this.hideFlag = true;
+      let searchString: string = searched.toLowerCase();
+      this.allProducts.forEach((product) => {
+        let lowercaseName: string = product.productName.toLowerCase();
+        if (lowercaseName.includes(searchString)) {
+          returnedSet.push(product);
+        }
+      });
+      this.allDiscountProducts.forEach((product) => {
+        let lowercaseName: string = product.productName.toLowerCase();
+        if (lowercaseName.includes(searchString)) {
+          returnedSet.push(product);
+        }
+      });
+    }
+    return returnedSet;
+  }
+
 
 
 }
