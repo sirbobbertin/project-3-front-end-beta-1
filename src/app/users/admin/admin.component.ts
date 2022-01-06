@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product, ProductAndDiscount, Discount } from 'src/app/models/product.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -37,19 +37,18 @@ export class AdminComponent implements OnInit {
     private formbuilder: FormBuilder,
     private productService: ProductService,
     private fileUploadService: FileUploadService) { }
-  ngOnInit(): void {
-    //for the modal input type form value
-    this.formValue = this.formbuilder.group({
-      //For generating random SKU String
-      product_sku: [this.getRandomString()],
-      product_name: [''],
-      product_cost: [''],
-      product_category: [''],
-      product_description: [''],
-      product_qty: [''],
-      image_url: ['']
-
-    })
+    ngOnInit(): void {
+      //for the modal input type form value
+      this.formValue = this.formbuilder.group({
+        //For generating random SKU String
+        product_sku: [ this.getRandomString()],
+        product_name: ['' ,[Validators.required]],
+        product_cost: ['',[Validators.required]],
+        product_category: ['',[Validators.required]],
+        product_description: ['',[Validators.required]],
+        product_qty: ['',[Validators.required]],
+        image_url: ['',[Validators.required]]
+      })
 
     this.formValueProduct = this.formbuilder.group({
       product_sku: [''],
@@ -128,6 +127,7 @@ export class AdminComponent implements OnInit {
           console.log(error);
         })
 
+      this.ngOnInit();
       alert("Product was added Successfully");
       //Close the Form Automatically
       let ref = document.getElementById("cancel");
