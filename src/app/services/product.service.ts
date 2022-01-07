@@ -22,10 +22,10 @@ export class ProductService {
   productsUrlGetAll = Instance.url + "/api/products/getall";
   
   //Anthony's Endpoints for EC2
-  discountProductUrlGet= Instance.url +"discount/all/discountedProducts";
-  discountUrlAdd = Instance.url + "discount/add/discounts";
-  discountUrlUpdate = Instance.url +"discount/update/discounts";
-  discountUrlRemove = Instance.url +"discount/remove/discounts";
+  discountProductUrlGet= Instance.url + "/discount/all/discountedProducts";
+  discountUrlAdd = Instance.url + "/discount/add/discounts";
+  discountUrlUpdate = Instance.url + "/discount/update/discounts";
+  discountUrlRemove = Instance.url + "/discount/remove/discounts";
 
   // add other endpoints below if needed
   constructor(private http: HttpClient) { }
