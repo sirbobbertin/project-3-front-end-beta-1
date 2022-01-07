@@ -162,6 +162,7 @@ export class StoreProductComponent implements OnInit {
     });
     this.hideFlag = true;
     this.filterFlag = true;
+    sessionStorage.removeItem("searchQuery");
   }
 
   filterByDiscount() {
@@ -189,17 +190,20 @@ export class StoreProductComponent implements OnInit {
   searchedProducts(searched: string|null) {
     let returnedSet: Product[] = [];
     if (searched != null) {
+      this.filterFlag=false;
       this.hideFlag = true;
       let searchString: string = searched.toLowerCase();
       this.allProducts.forEach((product) => {
         let lowercaseName: string = product.productName.toLowerCase();
-        if (lowercaseName.includes(searchString)) {
+        let lowercaseCategory: string = product.productCategory.toLowerCase();
+        if (lowercaseName.includes(searchString) || lowercaseCategory.includes(searchString)) {
           returnedSet.push(product);
         }
       });
       this.allDiscountProducts.forEach((product) => {
         let lowercaseName: string = product.productName.toLowerCase();
-        if (lowercaseName.includes(searchString)) {
+        let lowercaseCategory: string = product.productCategory.toLowerCase();
+        if (lowercaseName.includes(searchString) || lowercaseCategory.includes(searchString)) {
           returnedSet.push(product);
         }
       });
