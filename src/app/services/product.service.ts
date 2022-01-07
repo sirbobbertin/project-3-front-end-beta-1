@@ -13,6 +13,13 @@ export class ProductService {
   productsUrl2 = Instance.url + "/combined/Disc/Products";
   discountUrl = Instance.url + "/discounts";
 
+
+  //Anthony's Endpoints for EC2
+  discountProductUrlGet= Instance.url +"discount/all/discountedProducts";
+  discountUrlAdd = Instance.url + "discount/add/discounts";
+  discountUrlUpdate = Instance.url +"discount/update/discounts";
+  discountUrlRemove = Instance.url +"discount/remove/discounts";
+
   // add other endpoints below if needed
 
   constructor(private http: HttpClient) { }
@@ -42,21 +49,25 @@ export class ProductService {
     return this.http.delete<Product>(this.productsUrl + "/" + productId);
   }
 
+
+
+  // Anthony's Discount endpoints
+
   //get all Discounted Products from DB table
   getAllDiscountsProductsService(): Observable<ProductAndDiscount[]> {
-    return this.http.get<ProductAndDiscount[]>(this.productsUrl2);
+    return this.http.get<ProductAndDiscount[]>(this.discountProductUrlGet);
   }
 
   //Adds inputted discount into backend
   addDiscountService(newDiscount: Discount): Observable<Discount> {
-    return this.http.post<Discount>(this.discountUrl + "/add", newDiscount);
+    return this.http.post<Discount>(this.discountUrlAdd, newDiscount);
   }
   updateDiscountService(updateDiscount: Discount): Observable<Product> {
-    return this.http.put<Product>(this.discountUrl + "/update", updateDiscount);
+    return this.http.put<Product>(this.discountUrlUpdate, updateDiscount);
   }
 
   deleteDiscountService(discountId: number): Observable<Discount> {
-    return this.http.delete<Discount>(this.discountUrl + "/remove/" + discountId);
+    return this.http.delete<Discount>(this.discountUrlRemove + "/" + discountId);
   }
 
 }
