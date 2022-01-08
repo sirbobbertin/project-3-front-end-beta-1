@@ -11,7 +11,7 @@
       <div class="modal-body">
         <form [formGroup]="formValue">
           <div class="mb-3">
-            <label for="product_sku" class="form-label">Product SKU</label>
+            <label for="product_sku" class="form-label" >Product SKU</label>
             <input type="text" formControlName="product_sku" class="form-control" id="InputProductSku"
               aria-describedby="productSkuHelp">
               <span class="text-danger"
@@ -20,7 +20,7 @@
              </span>
           </div>
           <div class="mb-3">
-            <label for="product_name" class="form-label">Product Name</label>
+            <label for="product_name" class="form-label" class="asterixRequired">Product Name</label>
             <input type="text" formControlName="product_name" class="form-control" id="InputProductName"
               aria-describedby="productNameHelp">
               <span class="text-danger"
@@ -29,7 +29,7 @@
              </span>
           </div>
           <div class="mb-3">
-            <label for="product_category" class="form-label">Product Category</label>
+            <label for="product_category" class="form-label" class="asterixRequired">Product Category</label>
             <input type="text" formControlName="product_category" class="form-control" id="InputProductCategory"
               aria-describedby="productCategoryHelp">
               <span class="text-danger"
@@ -38,7 +38,7 @@
              </span>
           </div>
           <div class="mb-3">
-            <label for="product_cost" class="form-label">Product Cost</label>
+            <label for="product_cost" class="form-label" class="asterixRequired">Product Cost</label>
             <input type="text" formControlName="product_cost" class="form-control" id="InputProductCost"
               aria-describedby="productCostHelp">
               <span class="text-danger"
@@ -47,7 +47,7 @@
              </span>
           </div>
           <div class="mb-3">
-            <label for="product_qty" class="form-label">Product Quantity</label>
+            <label for="product_qty" class="form-label" class="asterixRequired">Product Quantity</label>
             <input type="text" formControlName="product_qty" class="form-control" id="InputProductQty "
               aria-describedby="productQtyHelp">
               <span class="text-danger"
@@ -56,7 +56,7 @@
              </span>
           </div>
           <div class="mb-3">
-            <label for="image_url" class="form-label"> Select Img File</label>
+            <label for="image_url" class="form-label" class="asterixRequired"> Select Img File</label>
             <input #imageInput type="file" formControlName="image_url" class="form-control" id="InputProductImgUrl"
               aria-describedby="productImgUrlHelp" accept="image/*" (change)="uploadImage($event)">
               <span class="text-danger"
@@ -65,7 +65,7 @@
              </span>
           </div>
           <div class="mb-3">
-            <label for="product_description" class="form-label">Product description</label>
+            <label for="product_description" class="form-label" class="asterixRequired">Product description</label>
             <textarea type="text" formControlName="product_description" class="form-control"
               id="InputProductDescription " aria-describedby="productDescriptionHelp">
               </textarea>
@@ -77,7 +77,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" (click)="addProducts()" [disabled]="!formValue.valid"class="btn btn-primary">Add</button>
       </div>
     </div>
@@ -108,6 +108,9 @@
       <th scope="col">Product SKU</th>
       <!-- <th scope="col">Product Image</th> -->
       <th scope="col">Product Description</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Add</th>
       <th></th>
     </tr>
     <tr *ngFor="let row of allDiscountProducts">
@@ -142,6 +145,9 @@
       <td> <button (click)="deleteProduct(row.productId)" type="button" class="btn btn-secondary" data-bs-toggle=""
           class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
       </td>
+      <td> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
+        data-bs-target="#exampleModal4" class="btn btn-info"><i class="fa fa-edit">Add Discount</i></button>
+    </td>
     </tr>
   </table>
 </div>
@@ -156,27 +162,27 @@
       <div class="modal-body">
         <form [formGroup]="formValue">
           <div class="mb-3">
-            <label for="product_sku" class="form-label">Product SKU</label>
+            <label for="product_sku" class="form-label" class="asterixRequired">Product SKU</label>
             <input type="text" formControlName="product_sku" class="form-control" id="InputProductSku"
               aria-describedby="productSkuHelp">
           </div>
           <div class="mb-3">
-            <label for="product_name" class="form-label">Product Name</label>
+            <label for="product_name" class="form-label" class="asterixRequired">Product Name</label>
             <input type="text" formControlName="product_name" class="form-control" id="InputProductName"
               aria-describedby="productNameHelp">
           </div>
           <div class="mb-3">
-            <label for="product_category" class="form-label">Product Category</label>
+            <label for="product_category" class="form-label" class="asterixRequired">Product Category</label>
             <input type="text" formControlName="product_category" class="form-control" id="InputProductCategory"
               aria-describedby="productCategoryHelp">
           </div>
           <div class="mb-3">
-            <label for="product_cost" class="form-label">Product Cost</label>
+            <label for="product_cost" class="form-label" class="asterixRequired">Product Cost</label>
             <input type="number" formControlName="product_cost" class="form-control" id="InputProductCost"
               aria-describedby="productCostHelp">
           </div>
           <div class="mb-3">
-            <label for="product_qty" class="form-label">Product Quantity</label>
+            <label for="product_qty" class="form-label" class="asterixRequired">Product Quantity</label>
             <input type="text" formControlName="product_qty" class="form-control" id="InputProductQty "
               aria-describedby="productQtyHelp">
           </div>
@@ -188,7 +194,7 @@
 
           </div>
           <div class="mb-3">
-            <label for="product_description" class="form-label">Product description</label>
+            <label for="product_description" class="form-label" class="asterixRequired">Product description</label>
             <textarea type="text" formControlName="product_description" class="form-control"
               id="InputProductDescription " aria-describedby="productDescriptionHelp">
                 </textarea>
@@ -203,7 +209,7 @@
 </div>
 
 <!-- Discount Products Section Modal form -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -238,9 +244,40 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Discount Products Section  Modal form -->
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Discount</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValueDiscount">
+          <div class="mb-3">
+            <label for="product_percentage" class="form-label">Product Discount Percentage</label>
+            <input type="text" formControlName="discount_percentage" class="form-control" id="InputProductPercentage "
+              aria-describedby="productPercentageHelp">
+          </div>
+          <div class="mb-3">
+            <label for="product_discount_description" class="form-label">Product Discount Description</label>
+            <textarea type="text" formControlName="discount_description" class="form-control"
+              id="InputProductDescription " aria-describedby="productDescriptionHelp">
+              </textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="addDiscountProducts()" class="btn btn-primary">Add Discount</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Discount Products Section Modal form -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
