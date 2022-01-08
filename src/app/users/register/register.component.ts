@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +17,7 @@ export class RegisterComponent implements OnInit {
     email: null,
     password: null,
     address: null, 
+    userImage: null,
     contact: null
   };
   isSuccessful = false;
@@ -22,7 +25,7 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router, private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +38,9 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        if((this.isSuccessful = true) || (this.isSignUpFailed = false)) {
+          this.router.navigate(['login'])
+        }
       },
       err => {
         this.errorMessage = err.error.message;
@@ -42,5 +48,25 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+  // public uploadImage(imageInput: any) {
+  //   const reader = new FileReader(); console.log(reader);
+
+  //   console.log(imageInput.files[0]);
+  //   this.fileUploadService.onUpload(imageInput.files[0]).subscribe({
+  //     next: async (response) => {
+
+  //       this.form.userImage = response;       
+  //     },
+  //     error: err => {
+  //       console.log(err);
+  //     }
+  //   })
+
+  // }
+
+
+
+
 
 }
