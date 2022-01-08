@@ -14,7 +14,7 @@ export class ProductAndDiscountService {
   constructor(private http: HttpClient) { }
 
   getProductAndDiscountService(productId: number): Observable<ProductAndDiscount> {
-    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId);
+    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId + "/get");
   }
 
 }

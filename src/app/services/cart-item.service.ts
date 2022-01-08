@@ -19,15 +19,15 @@ export class CartItemService {
   constructor(private http: HttpClient) { }
 
   addNewItemService(item: CartItem): Observable<CartItem> {
-    return this.http.post<CartItem>(this.baseUrl, item);
+    return this.http.post<CartItem>(this.baseUrl + "/post", item);
   }
 
   updateItemService(item: CartItem): Observable<CartItem> {
-    return this.http.put<CartItem>(this.baseUrl, item);
+    return this.http.put<CartItem>(this.baseUrl + "/put", item);
   }
 
   removeItemService(itemId: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.baseUrl + "/" + itemId);
+    return this.http.delete<boolean>(this.baseUrl + "/" + itemId + "/delete");
   }
 
 
