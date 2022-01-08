@@ -14,12 +14,12 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   updateCartService(cart: Cart): Observable<Cart> {
-    return this.http.put<Cart>(this.baseUrl, cart);
+    return this.http.put<Cart>(this.baseUrl + "/put", cart);
   }
 
 
   addCartService(cart: Cart): Observable<Cart> {
-    return this.http.post<Cart>(this.baseUrl, cart);
+    return this.http.post<Cart>(this.baseUrl + "/post", cart);
   }
 
 
