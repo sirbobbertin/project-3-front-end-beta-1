@@ -119,9 +119,8 @@ h6 {
   color: rgb(110, 111, 112);
 }
 
-.Checkout .entry .entry-details .entry-item-cost .addItem {
+.Checkout .entry .entry-details .entry-item-cost .form-select {
   width: 67px;
-  height: 30px;
 }
 
 .Checkout .entry-item-cost .item-sale-price h6 {
@@ -195,17 +194,6 @@ h6 {
   align-items: flex-end;
 }
 
-.sidebar .yousaved{
-  font-size: 12px;
-  font-weight: lighter;
-}
-
-.sidebar .yousaved .item-yousaved {
-    font-size: 12px;
-  font-weight: lighter;
-color: rgb(60, 63, 253);
-}
-
 .sidebar .subtotal .subtotal-title {
   font-size: 16px;
   font-weight: bold;
@@ -232,4 +220,3 @@ color: rgb(60, 63, 253);
 .form-check-input {
   margin-top: 8px;
 }
-
