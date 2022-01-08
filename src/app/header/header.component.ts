@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
   first_name?: string;
 
   searchQuery: string="";
+  
   constructor(private router: Router, 
     private tokenStorageService: TokenStorageService,
     private authService: AuthService) { }
