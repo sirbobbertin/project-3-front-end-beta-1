@@ -54,6 +54,8 @@ export class StoreProductComponent implements OnInit {
     discountPercentage: 0
   }
 
+  searchQuery: string="";
+
   constructor(
     private router: Router,
     private formbuilder: FormBuilder,
@@ -209,6 +211,10 @@ export class StoreProductComponent implements OnInit {
       });
     }
     return returnedSet;
+  }
+
+  searchStore() {
+    sessionStorage.setItem("searchQuery", this.searchQuery);
   }
 
 
