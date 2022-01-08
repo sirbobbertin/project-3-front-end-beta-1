@@ -231,10 +231,10 @@ export class AdminComponent implements OnInit {
   addDiscountProducts() {
     this.newDiscount.discountPercentage = this.formValueDiscount.value.discount_percentage;
     this.newDiscount.discountDescription = this.formValueDiscount.value.discount_description;
-    this.newDiscount.productId = this.formValueDiscount.value.product_id;
+    // this.newDiscount.productId = this.formValueDiscount.value.product_id;
 
     //recieves the productID from OnEditRow(row)
-    // this.newDiscount.productId = this.productObject.productId;
+    this.newDiscount.productId = this.discountObject.productId;
 
     // Let's post the data through the post request in service
     this.productService.addDiscountService(this.newDiscount).subscribe(
