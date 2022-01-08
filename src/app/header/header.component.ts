@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
   currentUser: any;
   first_name?: string;
 
+  searchQuery: string="";
   constructor(private router: Router, 
     private tokenStorageService: TokenStorageService,
     private authService: AuthService) { }
@@ -109,6 +110,9 @@ export class HeaderComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+  searchStore() {
+    sessionStorage.setItem("searchQuery", this.searchQuery);
   }
 
 }

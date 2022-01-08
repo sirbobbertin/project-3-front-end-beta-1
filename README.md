@@ -67,7 +67,8 @@ To-do list:
 
 Getting Started
 -----
-git clone `YOUR GITHUB REPO`
+* git clone `https://github.com/revature-rev-tech/project-3-back-end.git`
+* git clone `https://github.com/revature-rev-tech/project-3-front-end-beta.git`
 
 Contributors
 -----
@@ -75,5 +76,5 @@ Scrum Master: Michelle Ng
 
 Team Leads: Rowel Selidio, James Lemaire, Aimen Altaiyeb
 
-Team Members: Derrice Wright, Tulika Ghosh, Anthony Johnson, Austin Noel, Tareeq Hamilton, Sameh Botros (edited) 
+Team Members: Derrice Wright, Tulika Ghosh, Anthony Johnson, Austin Noel, Tareeq Hamilton, Sameh Botros
 

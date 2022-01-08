@@ -33,7 +33,8 @@
     <a href="/profile" class="topnav" *ngIf="isLoggedIn || showAdmin" id="profile">Profile</a>
     <a href="/admin" class="nav-link" *ngIf="showAdmin">Manage Store</a>
     <div class="topnav-right">
-        <a href="/login" class="topnav-right" id="profile">Hello, {{first_name || "sign in"}}</a>
+        <a href="/login" class="topnav-right" id="profile" *ngIf="!isLoggedIn">Hello, {{first_name || "sign in"}}</a>
+        <a href="profile" class="topnav-right" id="profile" *ngIf="isLoggedIn">Hello, {{first_name}}</a>
         <a class="topnav" href="/logout" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
         <a href="/checkout" class="topnav" id="cart" class="btn btn-danger btn-lg" id="cart" style="color: white;">
             <span><i class="fa fa-shopping-cart" style="font-size:24px" id="cart"></i></span>
@@ -45,8 +46,8 @@
             <div class="sb-example-1">
                 <div class="search">
                     <input type="text" class="searchTerm" size="100" maxlength="150" name="search_text"
-                        placeholder="What are you looking for?" id="search_text" style="color: black;" />
-                    <button type="submit" class="searchButton"><i class="fa fa-search"
+                        placeholder="What are you looking for?" id="search_text" style="color: black;" [(ngModel)]="searchQuery" />
+                    <button type="submit" class="searchButton" (click)="searchStore()"><i class="fa fa-search"
                         style="color: white;"></i></button>
                 </div>
             </div>
