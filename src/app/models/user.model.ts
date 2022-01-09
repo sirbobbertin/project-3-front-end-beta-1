@@ -9,5 +9,6 @@ export class User {
     userAddress: string = "";
     userType: string = "";
     userContact: string = "";
+    userImage: string = "";
     userRemoved: boolean = false;
 }
