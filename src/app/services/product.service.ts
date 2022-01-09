@@ -72,7 +72,7 @@ export class ProductService {
   }
 
   updateDiscountService(updateDiscount: Discount): Observable<Product> {
-    return this.http.put<Discount>(this.discountUrlUpdate, updateDiscount, this.header);
+    return this.http.put<Product>(this.discountUrlUpdate, updateDiscount, this.header);
 
   }
 
