@@ -85,7 +85,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" (click)="addProducts()" [disabled]="!formValue.valid"class="btn btn-primary">Add</button>
+        <!-- <button type="button" (click)="addProducts()" class="btn btn-primary">Add</button> -->
+        <!-- <button type="button" (click)="addProducts()" class="btn btn-primary">Add</button> -->
+        <button type="button" (click)="addProducts()" [disabled]="!formValueProduct.valid"class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
@@ -96,17 +98,17 @@
   <h2>Product Inventory</h2>
   <br>
   &nbsp;
+
   <button type="button" id="addProdBtn" class="btn btn-primary" data-toggle="modal" data-target="#addproductCenter">
     Add Product 
   </button>
   <br><br>
-  <h1>Product Table</h1>
+  <h3>Product Table</h3>
   <table>
     <tr>
       <th scope="col">Product Id </th>
       <th scope="col">Product Name</th>
       <th scope="col">Product Category</th>
-      <th scope="col">Product Percentage</th>
       <th scope="col">Product Cost</th>
       <th scope="col">Product Quantity</th>
       <th scope="col">Product SKU</th>
@@ -138,7 +140,7 @@
   </table>
   <br><br>
 
-  <h1>Discount Table</h1>
+  <h3>Discount Table</h3>&nbsp;<p> To edit details of products listed in the discount table, please remove applied discount first.</p>
   <table>
     <tr>
       <th scope="col">Product Id </th>
@@ -148,7 +150,6 @@
       <th scope="col">Product Cost</th>
       <th scope="col">Product Quantity</th>
       <th scope="col">Product SKU</th>
-      <!-- <th scope="col">Product Image</th> -->
       <th scope="col">Product Description</th>
       <th scope="col">Update</th>
       <th scope="col">Delete</th>
@@ -282,7 +283,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Discount</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Delete Discount/Delete Product</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
