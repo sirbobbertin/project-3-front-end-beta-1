@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   username?: string;
   showAdmin = false;
+  showUser = false;
   currentUser: any;
   first_name?: string;
 
@@ -51,6 +52,7 @@ export class HeaderComponent implements OnInit {
       this.roles = user.roles;
       this.username = user.username;
       this.showAdmin = this.roles.includes('ROLE_ADMIN');
+      this.showUser = this.roles.includes('ROLE_USER');
       this.first_name = user.first_name;
     }
     this.currentUser = this.tokenStorageService.getUser();
