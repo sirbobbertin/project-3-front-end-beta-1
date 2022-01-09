@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     email: null,
     password: null,
     address: null, 
-    userImage: null,
+    userImage: [''],
     contact: null
   };
   isSuccessful = false;
@@ -31,9 +31,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { first_name, last_name, username, email, password, address, contact } = this.form;
+    const { first_name, last_name, username, email, password, address, contact, userImage } = this.form;
 
-    this.authService.register(first_name, last_name, username, email, password, address, contact).subscribe(
+    this.authService.register(first_name, last_name, username, email, password, address, contact, userImage).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
@@ -49,21 +49,21 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  // public uploadImage(imageInput: any) {
-  //   const reader = new FileReader(); console.log(reader);
+  public uploadImage(imageInput: any) {
+    const reader = new FileReader(); console.log(reader);
 
-  //   console.log(imageInput.files[0]);
-  //   this.fileUploadService.onUpload(imageInput.files[0]).subscribe({
-  //     next: async (response) => {
+    console.log(imageInput.target.files[0]);
+    this.fileUploadService.onUpload(imageInput.target.files[0]).subscribe({
+      next: async (response) => {
+        console.log(response);
+        this.form.userImage = response;       
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
 
-  //       this.form.userImage = response;       
-  //     },
-  //     error: err => {
-  //       console.log(err);
-  //     }
-  //   })
-
-  // }
+  }
 
 
 

@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit {
     last_name: null,
     email: null,
     address: null, 
-    contact: null
+    contact: null,
+    userImage: ['']
   };
   isLoginFailed = false;
   errorMessage = '';
@@ -94,9 +95,9 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
   onSubmitregister(): void {
-    const { first_name, last_name, username, email, password, address, contact } = this.form;
+    const { first_name, last_name, username, email, password, address, contact, userImage } = this.form;
 
-    this.authService.register(first_name, last_name, username, email, password, address, contact).subscribe(
+    this.authService.register(first_name, last_name, username, email, password, address, contact,userImage).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
