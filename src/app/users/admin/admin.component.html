@@ -85,7 +85,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" (click)="addProducts()" [disabled]="!formValue.valid"class="btn btn-primary">Add</button>
+        <button type="button" (click)="addProducts()" class="btn btn-primary">Add</button>
+        <!-- <button type="button" (click)="addProducts()" [disabled]="!formValue.valid"class="btn btn-primary">Add</button> -->
       </div>
     </div>
   </div>
@@ -96,11 +97,12 @@
   <h2>Product Inventory</h2>
   <br>
   &nbsp;
+
   <button type="button" id="addProdBtn" class="btn btn-primary" data-toggle="modal" data-target="#addproductCenter">
     Add Product 
   </button>
   <br><br>
-  <h1>Product Table</h1>
+  <h3>Product Table</h3>
   <table>
     <tr>
       <th scope="col">Product Id </th>
@@ -138,7 +140,7 @@
   </table>
   <br><br>
 
-  <h1>Discount Table</h1>
+  <h3>Discount Table</h3>&nbsp;<p> To edit details of products listed in the discount table, please remove applied discount first.</p>
   <table>
     <tr>
       <th scope="col">Product Id </th>
