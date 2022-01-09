@@ -21,12 +21,12 @@ export class CartService {
    }
 
   updateCartService(cart: Cart): Observable<Cart> {
-    return this.http.put<Cart>(this.baseUrl + "/put", cart);
+    return this.http.put<Cart>(this.baseUrl, cart, this.header);
   }
 
 
   addCartService(cart: Cart): Observable<Cart> {
-    return this.http.post<Cart>(this.baseUrl + "/post", cart);
+    return this.http.post<Cart>(this.baseUrl, cart,this.header);
   }
 
 
