@@ -21,7 +21,7 @@ export class ProductAndDiscountService {
    }
 
   getProductAndDiscountService(productId: number): Observable<ProductAndDiscount> {
-    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId, this.header);
+    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId + "/get");
   }
 
 }
