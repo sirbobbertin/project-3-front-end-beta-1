@@ -27,8 +27,8 @@ describe('ProductAndDiscountService', () => {
         ProductAndDiscountService
       ],
     });
-    service = TestBed.get(ProductAndDiscountService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(ProductAndDiscountService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -60,8 +60,7 @@ describe('ProductAndDiscountService', () => {
       ];
 
 
-      service.getProductandDiscount()
-        .subscribe((pad: any) => {
+      service.getProductAndDiscountService(1).subscribe((pad: any) => {
           expect(pad.length).toBe(3);
         });
 
