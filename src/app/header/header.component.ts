@@ -41,13 +41,13 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.tokenStorageService.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.tokenStorageService.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorageService.getUser().roles;
       this.currentUser = this.tokenStorageService.getUser();
     }
-    if (this.isLoggedIn) {
+    if (this.tokenStorageService.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.username = user.username;
