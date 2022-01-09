@@ -89,9 +89,6 @@ export class StoreProductComponent implements OnInit {
           }
         }
         this.allProducts = response;
-        //-- For Testing Remove later
-        console.log("James testing");
-        console.log(response);
       },
       (error) => {
         this.errorProductMsg = "Unable to get allProducts - Try later";
@@ -112,12 +109,6 @@ export class StoreProductComponent implements OnInit {
         console.log(this.errorProductMsg);
       }
     )
-  }
-
-  //-----Example A function to search product(s) on sale
-  productOnSale() {
-    //do something or get by a speciific discount/sale endpoint
-
   }
 
   goToProduct(productId: number) {
@@ -152,7 +143,6 @@ export class StoreProductComponent implements OnInit {
     });
   }
 
-
   filterByCategory(categoryName: String) {
     this.filteredProducts = [];
     this.allProducts.forEach((product) => {
@@ -175,8 +165,6 @@ export class StoreProductComponent implements OnInit {
     this.hideFlag=true;
     this.filterFlag=true;
   }
-
- 
 
   unfilter() {
     this.filterFlag=false;
@@ -216,7 +204,4 @@ export class StoreProductComponent implements OnInit {
   searchStore() {
     sessionStorage.setItem("searchQuery", this.searchQuery);
   }
-
-
-
 }
