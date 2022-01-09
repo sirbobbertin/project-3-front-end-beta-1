@@ -32,6 +32,18 @@ export class AdminComponent implements OnInit {
     productRemoved: false,
     imageUrl: ""
   }
+  //To Provide Different Product Categories in add product form
+  public selectedCat: string = "Phone";
+   categories = [
+    {value : 'Laptop',          text : 'Laptop'},
+    {value : 'Phones',          text : 'Phones'},
+    {value : 'Gaming Consoles', text : 'Gaming Consoles'},
+    {value : 'TV & Video',      text : 'TV & Video'},
+    {value : 'HeadPhones',      text : 'HeadPhones'},
+    {value : 'Video Games',     text : 'Video Games'},
+    {value : 'Cameras',         text : 'Cameras'}
+  ]
+
   constructor(
     private router: Router,
     private formbuilder: FormBuilder,
@@ -128,7 +140,7 @@ export class AdminComponent implements OnInit {
         })
 
       this.ngOnInit();
-      alert("Product was added Successfully");
+      alert("Product was added successfully");
       //Close the Form Automatically
       let ref = document.getElementById("cancel");
       ref?.click();
@@ -163,7 +175,7 @@ export class AdminComponent implements OnInit {
     //add more later if needed
     this.productService.updateProductsService(this.productObject).subscribe(
       (response) => {
-        alert("Product was updated Successfully");
+        alert("Product was updated successfully");
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
         //Close the Form Automatically
@@ -178,7 +190,7 @@ export class AdminComponent implements OnInit {
   // delete a product
   deleteProduct(pId: number) {
     //Confirm with user before deleting a Product 
-    if(confirm("Are you sure to delete  product id: " + pId)) {
+    if(confirm("Are you sure to delete  product id: " + pId + "?")) {
     this.productService.deleteProductsService(pId).subscribe(
       (Response: any) => {
         this.loadProducts();
@@ -245,7 +257,7 @@ export class AdminComponent implements OnInit {
       (error: any) => {
         console.log(error);
       })
-    alert("Discounted was added Successfully");
+    alert("Discounted was added successfully");
     //Close the Form Automatically
     let ref = document.getElementById("cancel");
     ref?.click();
@@ -265,7 +277,7 @@ export class AdminComponent implements OnInit {
         //Let's reload the page once update is done
         this.router.navigate(['admin']);
         //Close the Form Automatically
-        alert("Discount was updated Successfully");
+        alert("Discount was updated successfully");
         let ref = document.getElementById("cancel");
         ref?.click();
         this.formValueDiscount.reset();
@@ -278,7 +290,7 @@ export class AdminComponent implements OnInit {
   //For Deleting Discount Products
   deleteDiscountProducts(discountId: number) {
     //Confirm with user before deleting a Discount Product 
-    if(confirm("Are you sure to delete  THis Discount product id: " + discountId)) {
+    if(confirm("Are you sure to delete this discount product id: " + discountId + "?")) {
 
     this.productService.deleteDiscountService(discountId).subscribe(
       (Response: any) => {

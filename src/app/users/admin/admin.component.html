@@ -30,8 +30,14 @@
           </div>
           <div class="mb-3">
             <label for="product_category" class="form-label" class="asterixRequired">Product Category</label>
-            <input type="text" formControlName="product_category" class="form-control" id="InputProductCategory"
-              aria-describedby="productCategoryHelp">
+            
+            <!-- <input type="text" formControlName="product_category" class="form-control" id="InputProductCategory"
+              aria-describedby="productCategoryHelp"> -->
+
+              <select formControlName="product_category" class="form-control" id="categoryTypes" [ngModel]="selectedCat">
+                <option *ngFor="let option of categories" [value]="option.value">{{option.text}}</option>
+              </select>
+
               <span class="text-danger"
               *ngIf="formValue.controls['product_category'].dirty && formValue.hasError('required', 'product_category')">
               Product Category is Required
@@ -89,13 +95,13 @@
   <h2>Product Inventory</h2>
   <br>
   &nbsp;
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addproductCenter">
-    Add Product
+  <button type="button" id="addProdBtn" class="btn btn-primary" data-toggle="modal" data-target="#addproductCenter">
+    Add Product 
   </button>
-  &nbsp;
+  <!-- &nbsp;
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
     Add Discount
-  </button>
+  </button> -->
   <br><br>
   <table>
     <tr>
@@ -124,10 +130,11 @@
       <!-- <td>{{row.imageUrl}}</td> -->
       <td>{{row.productDescription}}</td>
       <td> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
-          data-bs-target="#exampleModal3" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+          data-bs-target="#exampleModal3" class="btn btn-warning btn-sm">Update Discount</button>
       </td>
-      <td> <button (click)="deleteDiscountProducts(row.discountId)" type="button" class="btn btn-secondary"
-          data-bs-toggle="" class="btn btn-dark"><i class="fa fa-trash-o"></i></button>
+      <td> <button (click)="deleteDiscountProducts(row.discountId)" type="button" 
+        class="btn btn-secondary" data-bs-toggle="" 
+        class="btn btn-dark btn-sm">Delete Discount</button>
       </td>
     </tr>
     <tr *ngFor="let row of allProducts">
@@ -140,13 +147,13 @@
       <td>{{row.productSku}}</td>
       <td>{{row.productDescription}}</td>
       <td> <button (click)="onEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
-          data-bs-target="#exampleModal" class="btn btn-info"><i class="fa fa-edit">Update</i></button>
+          data-bs-target="#exampleModal" class="btn btn-info btn-sm">Update Product</button>
       </td>
-      <td> <button (click)="deleteProduct(row.productId)" type="button" class="btn btn-secondary" data-bs-toggle=""
-          class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+      <td> <button (click)="deleteProduct(row.productId)" type="button" class="btn btn-secondary btn-sm" data-bs-toggle=""
+          class="btn btn-danger btn-sm">Delete Product</button>
       </td>
       <td> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
-        data-bs-target="#exampleModal4" class="btn btn-info"><i class="fa fa-edit">Add Discount</i></button>
+        data-bs-target="#exampleModal4" class="btn btn-success btn-sm"  ><p>Add Discount To Product</p></button>
     </td>
     </tr>
   </table>
@@ -284,6 +291,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Update Discount</h5>
+
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
