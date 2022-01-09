@@ -3,6 +3,7 @@ import { HttpClient, HttpRequest, HttpHeaders, HttpEvent } from '@angular/common
 import { Observable } from 'rxjs';
 import { Discount, Product, ProductAndDiscount } from '../models/product.model';
 import {Instance} from "../models/Instance";
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,21 +27,27 @@ export class ProductService {
   discountUrlAdd = Instance.url + "/discount/add/discounts";
   discountUrlUpdate = Instance.url + "/discount/update/discounts";
   discountUrlRemove = Instance.url + "/discount/remove/discounts";
+  header = {};
 
   // add other endpoints below if needed
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, tokenService: TokenStorageService) { 
+    this.header = {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Bearer ${tokenService.getToken()}`)
+    }
+  }
 
    //add Product
    addProductsService(newProduct: Product): Observable<Product> {
-    return this.http.post<Product>(this.productsUrlAdd, newProduct);
+    return this.http.post<Product>(this.productsUrlAdd, newProduct, this.header);
   }
    //Update a product
    updateProductsService(updateProd: Product): Observable<Product> {
-    return this.http.put<Product>(this.productsUrlUpdate + "/" + updateProd.productId, updateProd);
+    return this.http.put<Product>(this.productsUrlUpdate + "/" + updateProd.productId, updateProd, this.header);
   }
    //Delete one Product
    deleteProductsService(productId: number): Observable<Product> {
-    return this.http.delete<Product>(this.productsUrlDelete + "/" + productId);
+    return this.http.delete<Product>(this.productsUrlDelete + "/" + productId, this.header);
   }
    //Get one Product
    getOneProductsService(productId: number): Observable<Product> {
@@ -61,14 +68,14 @@ export class ProductService {
 
   //Adds inputted discount into backend
   addDiscountService(newDiscount: Discount): Observable<Discount> {
-    return this.http.post<Discount>(this.discountUrlAdd, newDiscount);
+    return this.http.post<Discount>(this.discountUrlAdd, newDiscount, this.header);
   }
   updateDiscountService(updateDiscount: Discount): Observable<Product> {
-    return this.http.put<Product>(this.discountUrlUpdate, updateDiscount);
+    return this.http.put<Product>(this.discountUrlUpdate, updateDiscount, this.header);
   }
 
   deleteDiscountService(discountId: number): Observable<Discount> {
-    return this.http.delete<Discount>(this.discountUrlRemove + "/" + discountId);
+    return this.http.delete<Discount>(this.discountUrlRemove + "/" + discountId, this.header);
   }
 
 }
