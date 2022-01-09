@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
     userLastName: '',
     userAddress: '',
     userContact: '',
+    userImage:'',
     userType: '',
     userRemoved: false
   }
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
     userLastName: '',
     userAddress: '',
     userContact: '',
+    userImage: '',
     userType: '',
     userRemoved: false
   }
@@ -46,6 +48,7 @@ export class ProfileComponent implements OnInit {
   email?: string;
   address?: string;
   contact?: string;
+  userImage?: string;
   showAdmin = false;
   currentUser: any;  
   errorMsg = "";
@@ -69,6 +72,7 @@ export class ProfileComponent implements OnInit {
       this.last_name = user.last_name;
       this.address = user.address;
       this.contact = user.contact;
+      this.userImage = user.userImage;
       this.password = user.password;
 ​
 
