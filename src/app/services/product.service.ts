@@ -63,8 +63,8 @@ export class ProductService {
   addDiscountService(newDiscount: Discount): Observable<Discount> {
     return this.http.post<Discount>(this.discountUrlAdd, newDiscount);
   }
-  updateDiscountService(updateDiscount: Discount): Observable<Product> {
-    return this.http.put<Product>(this.discountUrlUpdate, updateDiscount);
+  updateDiscountService(updateDiscount: Discount): Observable<Discount> {
+    return this.http.put<Discount>(this.discountUrlUpdate, updateDiscount);
   }
 
   deleteDiscountService(discountId: number): Observable<Discount> {
