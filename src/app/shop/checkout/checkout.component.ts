@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartAndItems, Cart, ItemProductAndDiscount, CartItem } from 'src/app/models/cart.model';
-import {Product, ProductAndDiscount} from 'src/app/models/product.model';
+import { Product, ProductAndDiscount } from 'src/app/models/product.model';
 import { CartAndItemsService } from 'src/app/services/cart-and-items.service';
 import { CartItemService } from 'src/app/services/cart-item.service';
 import { TransactionService } from 'src/app/services/transaction.service';
-import {Transaction} from "../../models/transaction.model";
-import {AuthService} from "../../services/auth.service";
-import {CartService} from "../../services/cart.service";
-import {TokenStorageService} from "../../services/token-storage.service";
-import {ProductService} from "../../services/product.service";
-
+import { Transaction } from "../../models/transaction.model";
+import { AuthService } from "../../services/auth.service";
+import { CartService } from "../../services/cart.service";
+import { TokenStorageService } from "../../services/token-storage.service";
+import { ProductService } from "../../services/product.service";
 
 @Component({
   selector: 'app-checkout',
@@ -18,37 +17,35 @@ import {ProductService} from "../../services/product.service";
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-
   productAndDiscount: ProductAndDiscount = new ProductAndDiscount();
   transaction: Transaction = new Transaction();
   cartAndItems: CartAndItems = new CartAndItems();
   cart: Cart = new Cart();
   total: number = 0
-  itemNum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   errorMsg: string = "";
   displayStyle: string = "";
   itemUpdating: CartItem = new CartItem();
   userId: number = 0;
+  intervalId: any = null;
 
-
-
-  constructor(private activatedRoute: ActivatedRoute, private router: Router,
-              private cartAndItemsService: CartAndItemsService, private transactionService: TransactionService,
-              private authService: AuthService, private cartService: CartService, private cartItemService: CartItemService,
-              private tokenService: TokenStorageService,
-              private productService: ProductService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private cartAndItemsService: CartAndItemsService,
+    private transactionService: TransactionService,
+    private authService: AuthService,
+    private cartService: CartService,
+    private cartItemService: CartItemService,
+    private tokenService: TokenStorageService,
+    private productService: ProductService) { }
 
   ngOnInit(): void {
     //Line below from authService is not working.
     this.userId = this.tokenService.getUser().user_id;
     console.log(this.tokenService.getUser().user_id);
-    if(this.userId <= 0) this.userId = 1; //Remove this line if not testing
+    if (this.userId <= 0) this.userId = 1; //Remove this line if not testing
     this.displayAllCarts()
   }
-
-
   displayAllCarts() {
-    //var cartId: any = this.activatedRoute.snapshot.paramMap.get("cartId");
     this.cartAndItemsService.getCartAndItemsWithUserIdService(this.userId).subscribe((response) => {
       this.cartAndItems = response;
     }, error => {
@@ -56,13 +53,22 @@ export class CheckoutComponent implements OnInit {
       console.log(error);
     });
   }
-
   getItemsTotal(): any {
     let total = 0;
     this.cartAndItems.cartItems.forEach((value, index) => {
       total += this.calculateTotalCost(value, this.calculateDiscountedItemCost);
     });
+
     return total.toFixed(2);
+  }
+
+  getUserSave(): any {
+    let save = 0;
+    this.cartAndItems.cartItems.forEach((value, index) => {
+      save += value.productAndDiscount.productCost * value.cartQty;
+    });
+    return (save - this.getItemsTotal()).toFixed(2)
+
   }
 
   remove(productId: number) {
@@ -71,7 +77,6 @@ export class CheckoutComponent implements OnInit {
         this.displayAllCarts();
       },
       error: err => {
-
       }
     })
   }
@@ -84,15 +89,13 @@ export class CheckoutComponent implements OnInit {
     newItem.cartQty = event.value;
     this.cartItemService.updateItemService(newItem).subscribe({
       next: response => {
+
         this.displayAllCarts();
       },
       error: err => {
-
       }
     });
   }
-
-
   proceedToCheckout() {
     this.cart.cartId = this.cartAndItems.cartId
     this.cart.userId = this.cartAndItems.userId
@@ -114,17 +117,16 @@ export class CheckoutComponent implements OnInit {
       this.errorMsg = 'There was some internal error! Please try again later!';
     });
     this.updateMultiProducts();
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.displayStyle = "none";
       this.router.navigate(['/product']);
-    }, 5000);
+    }, 2000);
   }
-
-
   ngOnDestroy() {
-    clearInterval();
+    if(this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
-
   calculateDiscountedItemCost(product: ProductAndDiscount): number {
     let cost = product.productCost;
     let discountPercentage = product.discountPercentage;
@@ -133,19 +135,18 @@ export class CheckoutComponent implements OnInit {
   calculateSingleItemCost(product: ProductAndDiscount): number {
     return product.productCost;
   }
-
   calculateTotalSavings(product: ProductAndDiscount): number {
     let cost = product.productCost;
     let discountPercentage = product.discountPercentage;
     return cost * (discountPercentage);
   }
-
   calculateTotalCost(item: ItemProductAndDiscount, calcSingleItem: any) {
     return item.cartQty * calcSingleItem(item.productAndDiscount);
   }
 
+
   updateMultiProducts() {
-    this.cartAndItems.cartItems.forEach( (item) => {
+    this.cartAndItems.cartItems.forEach((item) => {
       let tempProduct = this.toProductModel(item);
       tempProduct.productQty = tempProduct.productQty - item.cartQty;
       this.productService.updateProductsService(tempProduct).subscribe({
@@ -156,7 +157,6 @@ export class CheckoutComponent implements OnInit {
       })
     });
   }
-
   toProductModel(item: ItemProductAndDiscount) {
     let product = new Product();
     product.productId = item.productAndDiscount.productId;
@@ -170,5 +170,4 @@ export class CheckoutComponent implements OnInit {
     product.productRemoved = item.productAndDiscount.productRemoved;
     return product;
   }
-
 }
