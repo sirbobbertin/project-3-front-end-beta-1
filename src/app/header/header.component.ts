@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit {
   onSubmitregister(): void {
     const { first_name, last_name, username, email, password, address, contact, userImage } = this.form;
 
-    this.authService.register(first_name, last_name, username, email, password, address, contact,userImage).subscribe(
+    this.authService.register(first_name, last_name, username, email, password, address, contact, userImage).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
