@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
   formValue         !: FormGroup;
   formValueProduct  !: FormGroup;
   formValueDiscount !: FormGroup;
+  formValueDiscountDelete !: FormGroup;
   formValueDiscountUpdate !: FormGroup;
   errorProductMsg: string = '';
   //Array for Form Fields to add new Product
@@ -63,19 +64,24 @@ export class AdminComponent implements OnInit {
       })
 
     this.formValueProduct = this.formbuilder.group({
-      product_sku: [''],
-      product_name: [''],
-      product_cost: [''],
-      product_category: [''],
-      product_description: [''],
-      product_qty: [''],
-      image_url: ['']
+      product_sku: [this.getRandomString()],
+      product_name: ['',[Validators.required]],
+      product_cost: ['',[Validators.required]],
+      product_category: ['',[Validators.required]],
+      product_description: ['',[Validators.required]],
+      product_qty: ['',[Validators.required]],
+      image_url: ['',[Validators.required]]
     })
 
     this.formValueDiscount = this.formbuilder.group({
       discount_percentage: [''],
       discount_description: [''],
       product_id: ['']
+    })
+
+    this.formValueDiscountDelete = this.formbuilder.group({
+      product_id: [''],
+      discount_id: ['']
     })
 
     this.formValueDiscountUpdate = this.formbuilder.group({
@@ -189,8 +195,8 @@ export class AdminComponent implements OnInit {
   }
   // delete a product
   deleteProduct(pId: number) {
-    //Confirm with user before deleting a Product 
-    if(confirm("Are you sure to delete  product id: " + pId + "?")) {
+    //Confirm with user before deleting a Product
+    if(confirm("Are you sure to delete this product id: " + pId)) {
     this.productService.deleteProductsService(pId).subscribe(
       (Response: any) => {
         this.loadProducts();
@@ -202,6 +208,8 @@ export class AdminComponent implements OnInit {
   //--------- ProductAndDiscount Section------------//
   allDiscountProducts: ProductAndDiscount[] = [];
   discountObject: Discount = new Discount;
+  deleteDiscountId: number = 0;
+  deleteProductId: number = 0;
   NewDiscountedProduct: ProductAndDiscount = {
 
     productId: 0,
@@ -288,11 +296,32 @@ export class AdminComponent implements OnInit {
       })
   }
   //For Deleting Discount Products
-  deleteDiscountProducts(discountId: number) {
+  deleteDiscountProducts() {
     //Confirm with user before deleting a Discount Product 
-    if(confirm("Are you sure to delete this discount product id: " + discountId + "?")) {
+    if(confirm("Are you sure to delete this discount product id: " + this.deleteDiscountId)) {
 
-    this.productService.deleteDiscountService(discountId).subscribe(
+    this.productService.deleteDiscountService(this.deleteDiscountId).subscribe(
+      (Response: any) => {
+        this.loadDiscountProducts();
+        this.loadProducts();
+      },
+      (error: any) => console.log(error)
+    )
+  }
+}
+  //For Deleting Discount Products
+  deleteProductsAlongWithDiscounts() {
+    //Confirm with user before deleting a Discount Product 
+    if(confirm("Are you sure you want to delete this discount id: " + this.deleteDiscountId+", along with product id: "+this.deleteProductId)) {
+
+    this.productService.deleteDiscountService(this.deleteDiscountId).subscribe(
+      (Response: any) => {
+        this.loadDiscountProducts();
+        this.loadProducts();
+      },
+      (error: any) => console.log(error)
+    )
+    this.productService.deleteProductsService(this.deleteProductId).subscribe(
       (Response: any) => {
         this.loadDiscountProducts();
         this.loadProducts();
@@ -314,6 +343,11 @@ export class AdminComponent implements OnInit {
     //To update discounts
     this.formValueDiscountUpdate.controls["discount_percentage"].setValue(row.discountPercentage);
     this.formValueDiscountUpdate.controls["discount_description"].setValue(row.discountDescription);
+    //To Delete discounts/products
+    this.formValueDiscountDelete.controls["product_id"].setValue(row.productId);
+    this.formValueDiscountDelete.controls["discount_id"].setValue(row.discountId);
+    this.deleteProductId = row.productId;
+    this.deleteDiscountId = row.discountId;
     //Reload the page
     this.loadDiscountProducts();
     this.loadProducts();
