@@ -129,12 +129,12 @@ export class AdminComponent implements OnInit {
   }
   // to add Product
   addProducts() {
-    this.newProduct.productSku = this.formValue.value.product_sku;
-    this.newProduct.productName = this.formValue.value.product_name;
-    this.newProduct.productCost = this.formValue.value.product_cost;
-    this.newProduct.productCategory = this.formValue.value.product_category;
-    this.newProduct.productDescription = this.formValue.value.product_description;
-    this.newProduct.productQty = this.formValue.value.product_qty;
+    this.newProduct.productSku = this.formValueProduct.value.product_sku;
+    this.newProduct.productName = this.formValueProduct.value.product_name;
+    this.newProduct.productCost = this.formValueProduct.value.product_cost;
+    this.newProduct.productCategory = this.formValueProduct.value.product_category;
+    this.newProduct.productDescription = this.formValueProduct.value.product_description;
+    this.newProduct.productQty = this.formValueProduct.value.product_qty;
 
     // Let's post the data through the post request in service
       this.productService.addProductsService(this.newProduct).subscribe(
