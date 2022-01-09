@@ -194,8 +194,18 @@
           </div>
           <div class="mb-3">
             <label for="product_category" class="form-label" class="asterixRequired">Product Category</label>
-            <input type="text" formControlName="product_category" class="form-control" id="InputProductCategory"
-              aria-describedby="productCategoryHelp">
+            
+            <!-- <input type="text" formControlName="product_category" class="form-control" id="InputProductCategory"
+              aria-describedby="productCategoryHelp"> -->
+
+              <select formControlName="product_category" class="form-control" id="categoryTypes" [ngModel]="selectedCat">
+                <option *ngFor="let option of categories" [value]="option.value">{{option.text}}</option>
+              </select>
+
+              <span class="text-danger"
+              *ngIf="formValue.controls['product_category'].dirty && formValue.hasError('required', 'product_category')">
+              Product Category is Required
+             </span>
           </div>
           <div class="mb-3">
             <label for="product_cost" class="form-label" class="asterixRequired">Product Cost</label>
