@@ -22,11 +22,11 @@ export class CartAndItemsService {
    }
 
   getCartAndItemsService(cartId: number): Observable<CartAndItems>{
-    return this.http.get<CartAndItems>(this.baseUrl + "/cart/" + cartId,this.header);
+    return this.http.get<CartAndItems>(this.baseUrl + "/cart/" + cartId + "/get", this.header);
   }
 
   getCartAndItemsWithUserIdService(userId: number): Observable<CartAndItems> {
-    return this.http.get<CartAndItems>(this.baseUrl + "/user/" + userId,this.header);
+    return this.http.get<CartAndItems>(this.baseUrl + "/user/" + userId + "/get", this.header);
   }
 
 }

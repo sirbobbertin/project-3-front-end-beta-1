@@ -25,15 +25,15 @@ export class CartItemService {
     }
    }
   addNewItemService(item: CartItem): Observable<CartItem> {
-    return this.http.post<CartItem>(this.baseUrl, item, this.header);
+    return this.http.post<CartItem>(this.baseUrl + "/post", item, this.header);
   }
 
   updateItemService(item: CartItem): Observable<CartItem> {
-    return this.http.put<CartItem>(this.baseUrl, item, this.header);
+    return this.http.put<CartItem>(this.baseUrl + "/put", item, this.header);
   }
 
   removeItemService(itemId: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.baseUrl + "/" + itemId, this.header);
+    return this.http.delete<boolean>(this.baseUrl + "/" + itemId + "/delete", this.header);
   }
 
 
