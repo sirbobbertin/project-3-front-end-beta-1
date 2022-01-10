@@ -50,18 +50,18 @@ export class AdminComponent implements OnInit {
     private formbuilder: FormBuilder,
     private productService: ProductService,
     private fileUploadService: FileUploadService) { }
-  ngOnInit(): void {
-    //for the modal input type form value
-    this.formValue = this.formbuilder.group({
-      //For generating random SKU String
-      product_sku: [ this.getRandomString()],
-      product_name: ['' ,[Validators.required]],
-      product_cost: ['',[Validators.required]],
-      product_category: ['',[Validators.required]],
-      product_description: ['',[Validators.required]],
-      product_qty: ['',[Validators.required]],
-      image_url: ['',[Validators.required]]
-    })
+    ngOnInit(): void {
+      //for the modal input type form value
+      this.formValue = this.formbuilder.group({
+        //For generating random SKU String
+        product_sku: [ this.getRandomString()],
+        product_name: ['' ,[Validators.required]],
+        product_cost: ['',[Validators.required]],
+        product_category: ['',[Validators.required]],
+        product_description: ['',[Validators.required]],
+        product_qty: ['',[Validators.required]],
+        image_url: ['',[Validators.required]]
+      })
 
     this.formValueProduct = this.formbuilder.group({
       product_sku: [this.getRandomString()],
