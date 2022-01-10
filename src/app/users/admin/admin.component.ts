@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
   formValueDiscountDelete !: FormGroup;
   formValueDiscountUpdate !: FormGroup;
   errorProductMsg: string = '';
+
   //Array for Form Fields to add new Product
   newProduct: Product = {
     productId: 0,
@@ -127,6 +128,7 @@ export class AdminComponent implements OnInit {
     })
 
   }
+  
   // to add Product
   addProducts() {
     this.newProduct.productSku = this.formValueProduct.value.product_sku;
@@ -140,6 +142,7 @@ export class AdminComponent implements OnInit {
       this.productService.addProductsService(this.newProduct).subscribe(
         (response: any) => {
           this.loadProducts();
+          this.reloadPage();
         },
         (error: any) => {
           console.log(error);
@@ -154,6 +157,13 @@ export class AdminComponent implements OnInit {
       this.router.navigate(['admin'])
       
   }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
+
+4:39
+// this.reloadPage();
   //Method to set the new values on to the modal table rows
   onEditRow(row: any) {
     this.productObject.productId = row.productId;
