@@ -10,7 +10,7 @@
                 <a href="#"> <img [src]="productAndDiscount.imageUrl"></a>
               </div> <!-- card img-big-wrap.// -->
               </div>
-              
+
               <!-- <div class="thumbs-wrap">
                   <a href="#" class="item-thumb"> <img src="assets/images/items/3.jpg"></a>
                   <a href="#" class="item-thumb"> <img src="assets/images/items/3.jpg"></a>
@@ -43,11 +43,13 @@
                 </div>
               </div> <!-- price-detail-wrap .// -->
               <div class="mb-4">
-                <div class="counter">
+                <div class="counter" *ngIf="productAndDiscount.productQty > 0">
                   <span class="down" (click)='decreaseCount()'>-</span>
                   <input type="text" [(ngModel)]="counter" (change)="qtyChange()">
                   <span class="up"  (click)='increaseCount()'>+</span>
                 </div>
+                <span class="out-of-stock" *ngIf="productAndDiscount.productQty < 1">This item is out of stock</span>
+
                 <button class="btn btn-danger" (click)="goToCheckout()">Go to cart</button>
                 <h4 class="item-details ">Available: {{productAndDiscount.productQty}}</h4>
 
