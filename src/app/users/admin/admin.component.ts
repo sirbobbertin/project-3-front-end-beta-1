@@ -320,14 +320,14 @@ export class AdminComponent implements OnInit {
         this.loadProducts();
       },
       (error: any) => console.log(error)
-    )
+    );
     this.productService.deleteProductsService(this.deleteProductId).subscribe(
       (Response: any) => {
         this.loadDiscountProducts();
         this.loadProducts();
       },
       (error: any) => console.log(error)
-    )
+    );
   }
 }
 
