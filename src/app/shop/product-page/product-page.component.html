@@ -37,18 +37,20 @@
               </div>
               <div class="mb-3">
                 <div >
-<!--              <var class="price h4">${{productAndDiscount.productCost}}</var> <br>-->
-                <h6 class="card-text">{{productAndDiscount.productCost-productAndDiscount.productCost*productAndDiscount.discountPercentage | currency }}</h6> 
-                <h6 class ="old-product-price" *ngIf="productAndDiscount.discountPercentage > 0.01" >{{productAndDiscount.productCost | currency}} </h6>
-              </div>
+                  <!--              <var class="price h4">${{productAndDiscount.productCost}}</var> <br>-->
+                  <h6 class="card-text">{{productAndDiscount.productCost-productAndDiscount.productCost*(productAndDiscount.discountPercentage / 100) | currency }}</h6>
+                  <h6 class ="old-product-price" *ngIf="productAndDiscount.discountPercentage > 1.0" >{{productAndDiscount.productCost | currency}} </h6>
+                </div>
               </div> <!-- price-detail-wrap .// -->
               <div class="mb-4">
                 <div class="counter">
                   <span class="down" (click)='decreaseCount()'>-</span>
-                  <input type="text" [(ngModel)]="counter">
+                  <input type="text" [(ngModel)]="counter" (change)="qtyChange()">
                   <span class="up"  (click)='increaseCount()'>+</span>
                 </div>
                 <button class="btn btn-danger" (click)="goToCheckout()">Go to cart</button>
+                <h4 class="item-details ">Available: {{productAndDiscount.productQty}}</h4>
+
               </div>
             </article> <!-- product-info-aside .// -->
           </main> <!-- col.// -->
@@ -63,16 +65,12 @@
                 <dl class="row">
                       <dt class="col-sm-3">Display</dt>
                       <dd class="col-sm-9">13.3-inch LED-backlit display with IPS</dd>
-
                       <dt class="col-sm-3">Processor</dt>
                       <dd class="col-sm-9">2.3GHz dual-core Intel Core i5</dd>
-
                       <dt class="col-sm-3">Camera</dt>
                       <dd class="col-sm-9">720p FaceTime HD camera</dd>
-
                       <dt class="col-sm-3">Memory</dt>
                       <dd class="col-sm-9">8 GB RAM or 16 GB RAM</dd>
-
                       <dt class="col-sm-3">Graphics</dt>
                       <dd class="col-sm-9">Intel Iris Plus Graphics 640</dd>
                 </dl>
