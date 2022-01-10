@@ -10,6 +10,7 @@ import { TokenStorageService } from './token-storage.service';
 })
 export class ProductAndDiscountService {
 
+
   baseUrl = Instance.url + "/api/product-discount";
   header = {};
 
