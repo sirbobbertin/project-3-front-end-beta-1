@@ -22,7 +22,7 @@ export class ProductAndDiscountService {
    }
 
   getProductAndDiscountService(productId: number): Observable<ProductAndDiscount> {
-    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId + "/get");
+    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId + "/get", this.header);
   }
 
 }
