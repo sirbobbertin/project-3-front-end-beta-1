@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
   formValueDiscountDelete !: FormGroup;
   formValueDiscountUpdate !: FormGroup;
   errorProductMsg: string = '';
+
   //Array for Form Fields to add new Product
   newProduct: Product = {
     productId: 0,
@@ -35,7 +36,7 @@ export class AdminComponent implements OnInit {
   }
   //To Provide Different Product Categories in add product form
   public selectedCat: string = "Phone";
-   categories = [
+  categories = [
     {value : 'Laptop',          text : 'Laptop'},
     {value : 'Phones',          text : 'Phones'},
     {value : 'Gaming Consoles', text : 'Gaming Consoles'},
@@ -119,7 +120,7 @@ export class AdminComponent implements OnInit {
       next: async (response: string) => {
         this.productObject.imageUrl = response;
         this.newProduct.imageUrl = response;
-        
+
       },
       error: (err: any) => {
         console.log(err);
@@ -127,6 +128,7 @@ export class AdminComponent implements OnInit {
     })
 
   }
+  
   // to add Product
   addProducts() {
     this.newProduct.productSku = this.formValueProduct.value.product_sku;
@@ -137,23 +139,30 @@ export class AdminComponent implements OnInit {
     this.newProduct.productQty = this.formValueProduct.value.product_qty;
 
     // Let's post the data through the post request in service
-      this.productService.addProductsService(this.newProduct).subscribe(
-        (response: any) => {
-          this.loadProducts();
-        },
-        (error: any) => {
-          console.log(error);
-        })
+    this.productService.addProductsService(this.newProduct).subscribe(
+      (response: any) => {
+        this.loadProducts();
+      },
+      (error: any) => {
+        console.log(error);
+      })
 
-      this.ngOnInit();
-      alert("Product was added successfully");
-      //Close the Form Automatically
-      let ref = document.getElementById("cancel");
-      ref?.click();
-      this.formValue.reset();
-      this.router.navigate(['admin'])
-      
+    this.ngOnInit();
+    alert("Product was added successfully");
+    //Close the Form Automatically
+    let ref = document.getElementById("cancel");
+    ref?.click();
+    this.formValue.reset();
+    this.router.navigate(['admin'])
+
   }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
+
+4:39
+// this.reloadPage();
   //Method to set the new values on to the modal table rows
   onEditRow(row: any) {
     this.productObject.productId = row.productId;
@@ -165,7 +174,7 @@ export class AdminComponent implements OnInit {
     this.formValue.controls["product_description"].setValue(row.productDescription);
     this.formValue.controls["product_qty"].setValue(row.productQty);
     this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
-  
+
     //Reload the page
     this.loadProducts();
   }
@@ -197,12 +206,12 @@ export class AdminComponent implements OnInit {
   deleteProduct(pId: number) {
     //Confirm with user before deleting a Product
     if(confirm("Are you sure to delete this product id: " + pId)) {
-    this.productService.deleteProductsService(pId).subscribe(
-      (Response: any) => {
-        this.loadProducts();
-      },
-      (error: any) => console.log(error)
-    )
+      this.productService.deleteProductsService(pId).subscribe(
+        (Response: any) => {
+          this.loadProducts();
+        },
+        (error: any) => console.log(error)
+      )
     }
   }
   //--------- ProductAndDiscount Section------------//
@@ -297,39 +306,39 @@ export class AdminComponent implements OnInit {
   }
   //For Deleting Discount Products
   deleteDiscountProducts() {
-    //Confirm with user before deleting a Discount Product 
+    //Confirm with user before deleting a Discount Product
     if(confirm("Are you sure to delete this discount product id: " + this.deleteDiscountId)) {
 
-    this.productService.deleteDiscountService(this.deleteDiscountId).subscribe(
-      (Response: any) => {
-        this.loadDiscountProducts();
-        this.loadProducts();
-      },
-      (error: any) => console.log(error)
-    )
+      this.productService.deleteDiscountService(this.deleteDiscountId).subscribe(
+        (Response: any) => {
+          this.loadDiscountProducts();
+          this.loadProducts();
+        },
+        (error: any) => console.log(error)
+      )
+    }
   }
-}
   //For Deleting Discount Products
   deleteProductsAlongWithDiscounts() {
-    //Confirm with user before deleting a Discount Product 
+    //Confirm with user before deleting a Discount Product
     if(confirm("Are you sure you want to delete this discount id: " + this.deleteDiscountId+", along with product id: "+this.deleteProductId)) {
 
-    this.productService.deleteDiscountService(this.deleteDiscountId).subscribe(
-      (Response: any) => {
-        this.loadDiscountProducts();
-        this.loadProducts();
-      },
-      (error: any) => console.log(error)
-    );
-    this.productService.deleteProductsService(this.deleteProductId).subscribe(
-      (Response: any) => {
-        this.loadDiscountProducts();
-        this.loadProducts();
-      },
-      (error: any) => console.log(error)
-    );
+      this.productService.deleteDiscountService(this.deleteDiscountId).subscribe(
+        (Response: any) => {
+          this.loadDiscountProducts();
+          this.loadProducts();
+        },
+        (error: any) => console.log(error)
+      )
+      this.productService.deleteProductsService(this.deleteProductId).subscribe(
+        (Response: any) => {
+          this.loadDiscountProducts();
+          this.loadProducts();
+        },
+        (error: any) => console.log(error)
+      )
+    }
   }
-}
 
   //Method to set the new values on to the modal table rows
   onDiscountEditRow(row: any) {
@@ -358,9 +367,9 @@ export class AdminComponent implements OnInit {
     let randomChars = 'AB2C13EH45IK67LM8PR9SXY';
     let result = '';
     for ( var i = 0; i < randomChars.length; i++ ) {
-        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+      result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
     }
     return result;
   }
-  
+
 }//end class

@@ -10,6 +10,7 @@ import { TokenStorageService } from './token-storage.service';
 })
 export class ProductAndDiscountService {
 
+
   baseUrl = Instance.url + "/api/product-discount";
   header = {};
 
@@ -21,7 +22,7 @@ export class ProductAndDiscountService {
    }
 
   getProductAndDiscountService(productId: number): Observable<ProductAndDiscount> {
-    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId, this.header);
+    return this.http.get<ProductAndDiscount>(this.baseUrl + "/" + productId + "/get", this.header);
   }
 
 }
