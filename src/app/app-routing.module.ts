@@ -21,6 +21,8 @@ import { ProfileComponent } from './users/profile/profile.component';
 // import { AirPurifiersComponent } from './product/air-purifiers/air-purifiers.component';
 // import { GamePadsComponent } from './product/game-pads/game-pads.component';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
+import {ConfirmationCheckoutComponent} from "./shop/confirmation-checkout/confirmation-checkout.component";
+import {OrderHistoryComponent} from "./shop/order-history/order-history.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -44,6 +46,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'product', pathMatch: 'full'},
   { path: "product-page", component: ProductPageComponent },
   { path: "product-page/:productId", component: ProductPageComponent },
+  { path: "confirmation-checkout/:sentTransaction", component: ConfirmationCheckoutComponent },
+  { path: "order-history", component: OrderHistoryComponent },
 
 ];
 

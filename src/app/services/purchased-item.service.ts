@@ -25,11 +25,11 @@ export class PurchasedItemService {
   }
 
   getPurchasedItemsByTransaction(transactionId: number): Observable<PurchasedItemProduct[]> {
-    return this.http.get<PurchasedItemProduct[]>(this.baseUrl + ("transaction/" + transactionId  + "/get"), this.header)
+    return this.http.get<PurchasedItemProduct[]>(this.baseUrl + ("/transaction/" + transactionId  + "/get"), this.header)
   }
 
-  getPurchasedItemsByUser(transactionId: number): Observable<PurchasedItemProduct[]> {
-    return this.http.get<PurchasedItemProduct[]>(this.baseUrl + ("user/" + transactionId  + "/get"), this.header)
+  getPurchasedItemsByUser(userId: number): Observable<PurchasedItemProduct[]> {
+    return this.http.get<PurchasedItemProduct[]>(this.baseUrl + ("/user/" + userId  + "/get"), this.header)
   }
 
 }
