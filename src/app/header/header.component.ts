@@ -61,7 +61,6 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
   }
 
   
@@ -80,9 +79,9 @@ export class HeaderComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/product']);
        }, 3000);
-       setTimeout(() => {
-        this.reloadPage();
-     }, 3000);
+    //    setTimeout(() => {
+    //     this.reloadPage();
+    //  }, 3000);
       },
       err => {
         this.errorMessage = err.error.message;
@@ -105,9 +104,9 @@ export class HeaderComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/product']);
        }, 3000);
-       setTimeout(() => {
-        this.reloadPage();
-     }, 3000);
+    //    setTimeout(() => {
+    //     this.reloadPage();
+    //  }, 3000);
       },
       err => {
         this.errorMessage = err.error.message;
@@ -117,6 +116,10 @@ export class HeaderComponent implements OnInit {
   }
   searchStore() {
     sessionStorage.setItem("searchQuery", this.searchQuery);
+  }
+
+  isLogged() {
+    return this.tokenStorageService.isLoggedIn;
   }
 
 }
