@@ -53,9 +53,9 @@ export class LoginComponent implements OnInit {
         this.roles = this.tokenStorage.getUser().roles;
         this.username = this.tokenStorage.getUser().username;
         this.router.navigate(['/product'])
-        .then(() => {
-        window.location.reload();
-        });
+//         .then(() => {
+//         window.location.reload();
+//         });
       },
       err => {
         this.errorMessage = err.error.message;
