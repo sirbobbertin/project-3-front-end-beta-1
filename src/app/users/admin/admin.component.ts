@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
   toggleProductTable: boolean = false;
   //Arrays, Objects, & string
   allProducts: Product[] = [];
+
   productObject: Product = new Product();
   formValue         !: FormGroup;
   formValueProduct  !: FormGroup;
@@ -23,6 +24,7 @@ export class AdminComponent implements OnInit {
   formValueDiscountDelete !: FormGroup;
   formValueDiscountUpdate !: FormGroup;
   errorProductMsg: string = '';
+  storeImgUrl :  string = '';
 
   //Array for Form Fields to add new Product
   newProduct: Product = {
@@ -187,11 +189,12 @@ export class AdminComponent implements OnInit {
 
   }
 
-  reloadPage(): void {
-    window.location.reload();
-  }
+  //As per Poon no direct code to be used for refreshing the S.P.A. 
+  // reloadPage(): void {
+  //   window.location.reload();
+  // }
 
-4:39
+
 // this.reloadPage();
   //Method to set the new values on to the modal table rows
   onEditRow(row: any) {
@@ -203,9 +206,9 @@ export class AdminComponent implements OnInit {
     this.formValue.controls["product_category"].setValue(row.productCategory);
     this.formValue.controls["product_description"].setValue(row.productDescription);
     this.formValue.controls["product_qty"].setValue(row.productQty);
-    // this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
-    this.formValue.controls["image_url"].setValue("");
-    console.log(row.imageUrl)
+    //To Prevent image being lost - store its url in a variable here
+    this.storeImgUrl =  row.imageUrl;
+    this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
 
     //Reload the page
     this.loadProducts();
@@ -218,8 +221,15 @@ export class AdminComponent implements OnInit {
     this.productObject.productCategory = this.formValue.value.product_category;
     this.productObject.productDescription = this.formValue.value.product_description;
     this.productObject.productQty = this.formValue.value.product_qty;
-    this.productObject.imageUrl = this.productObject.imageUrl;
-    // console.log(this.formValue.value.image_url);
+    //To Prevent image being lost on update.
+    //We use the same Store Image variable above, check if product image is empty
+    // if Yes assign storeImgUrl to it. 
+    if(this.productObject.imageUrl == '' ){
+      // check if image url is updated or not
+      this.productObject.imageUrl = this.storeImgUrl;
+    }
+    
+    console.log(this.formValue.value.image_url);
     //add more later if needed
     this.productService.updateProductsService(this.productObject).subscribe(
       (response) => {

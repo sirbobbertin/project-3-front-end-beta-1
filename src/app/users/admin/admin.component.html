@@ -136,6 +136,7 @@
       <th scope="col">Product Quantity</th>
       <th scope="col">Product SKU</th>
       <th scope="col">Product Description</th>
+      <th scope="col">Product Image</th>
       <th scope="col">Update</th>
       <th scope="col">Delete</th>
       <th scope="col">Add</th>
@@ -170,6 +171,8 @@
       <td *ngIf="toggleProductTable==true">{{row.productQty}}</td>
       <td *ngIf="toggleProductTable==true">{{row.productSku}}</td>
       <td *ngIf="toggleProductTable==true">{{row.productDescription}}</td>
+      <td><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
+      </td>
       <td *ngIf="toggleProductTable==true"> <button (click)="onEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
           data-bs-target="#exampleModal" class="btn btn-info"><i class="fa fa-edit">Update</i></button>
       </td>
@@ -264,7 +267,7 @@
           </div>
           <div class="mb-3">
 
-            <label for="image_url" class="form-label"> Select Img File</label>
+            <label for="image_url" class="form-label">Choose image  to update </label>
             <input #imageInput type="file" formControlName="image_url" class="form-control" id="InputProductImgUrl"
               aria-describedby="productImgUrlHelp" accept="image/*" (change)="uploadImage($event)">
 
@@ -309,7 +312,7 @@
           </div>
           <div class="mb-3">
             <label for="product_id" class="form-label">Product Id</label>
-            <span type="number" formControlName="product_id" class="form-control" id="InputProductId "
+            <span type="number"  class="form-control" id="InputProductId "
               aria-describedby="productIdHelp">{{discountObject.productId}}</span>
           </div>
         </form>
@@ -336,12 +339,12 @@
         <form [formGroup]="formValueDiscountDelete">
           <div class="mb-3">
             <label for="product_id" class="form-label">Product ID</label>
-            <span type="text" formControlName="product_id" class="form-control" id="InputProductId "
+            <span type="text"  class="form-control" id="InputProductId "
               aria-describedby="productPercentageHelp">{{deleteProductId}}</span>
           </div>
           <div class="mb-3">
             <label for="product_discount_description" class="form-label"> Discount ID</label>
-            <span type="text" formControlName="discount_id" class="form-control" id="InputDiscountId "
+            <span type="text"  class="form-control" id="InputDiscountId "
               aria-describedby="productPercentageHelp">{{deleteDiscountId}}</span>
           </div>
         </form>
