@@ -40,15 +40,15 @@
                 </div>
               </div> <!-- price-detail-wrap .// -->
               <div class="mb-4">
-                <div class="counter">
+                <div class="counter" *ngIf="productAndDiscount.productQty > 0">
                   <span class="down" (click)='decreaseCount()'>-</span>
                   <input type="text" [(ngModel)]="counter" (change)="qtyChange()">
                   <span class="up"  (click)='increaseCount()'>+</span>
                 </div>
-                <button class="btn btn-danger" (click)="goToCheckout()">Go to Cart</button>
-                <br><br>
-                <h5 class="item-details ">Available: {{productAndDiscount.productQty}}</h5>
-                <div style="font-size: small;">SKU: {{productAndDiscount.productSku}}</div>
+                <span class="out-of-stock" *ngIf="productAndDiscount.productQty < 1">This item is out of stock</span>
+
+                <button class="btn btn-danger" (click)="goToCheckout()">Go to cart</button>
+                <h4 class="item-details ">Available: {{productAndDiscount.productQty}}</h4>
 
               </div>
             </article> <!-- product-info-aside .// -->
