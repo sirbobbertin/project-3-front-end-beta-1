@@ -94,7 +94,8 @@
   </div>
 </div>
 
-<div style="overflow-x:auto;">
+<div style="overflow-x:auto; border-radius: 5px; border-style: groove;">
+  <div style="border-radius: 5px; border-style: groove; margin-left:30%; margin-right:30%">
   <br>
   <h2>Product Inventory</h2>
   <p style="padding-left: 2in;padding-right: 2in; text-align: center;">
@@ -111,6 +112,7 @@
         Delete (Red): to delete a product</p>
         <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
           Add Discount: to add a product</p>
+        </div>
   
   <br>
   &nbsp;
@@ -388,6 +390,8 @@
         </form>
       </div>
       <div class="modal-footer">
+        <button (click)="onEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Update Product</button>
         <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" (click)="updateDiscountProducts()" class="btn btn-primary" data-bs-toggle="modal">Update Discount</button>
       </div>
