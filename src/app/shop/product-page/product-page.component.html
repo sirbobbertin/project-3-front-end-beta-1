@@ -61,35 +61,8 @@
     </article>
     <article class="card mt-5">
       <div class="card-body">
-        <!-- <div class="row">
-            <aside class="col-md-6">
-                <h5>Parameters</h5>
-                <dl class="row">
-                      <dt class="col-sm-3">Display</dt>
-                      <dd class="col-sm-9">13.3-inch LED-backlit display with IPS</dd>
-                      <dt class="col-sm-3">Processor</dt>
-                      <dd class="col-sm-9">2.3GHz dual-core Intel Core i5</dd>
-                      <dt class="col-sm-3">Camera</dt>
-                      <dd class="col-sm-9">720p FaceTime HD camera</dd>
-                      <dt class="col-sm-3">Memory</dt>
-                      <dd class="col-sm-9">8 GB RAM or 16 GB RAM</dd>
-                      <dt class="col-sm-3">Graphics</dt>
-                      <dd class="col-sm-9">Intel Iris Plus Graphics 640</dd>
-                </dl>
-            </aside>
-            <aside class="col-md-6">
-                <h5>Features</h5>
-                <ul class="list-check">
-                    <li>Best performance of battery</li>
-                    <li>5 years warranty for this product</li>
-                    <li>Amazing features and high quality</li>
-                    <li>Best performance of battery</li>
-                    <li>5 years warranty for this product</li>
-                </ul>
-            </aside>
-        </div> row.// -->
         <div class="container">
-          <form action="action_page.php">
+          <form action="action_page.php" *ngIf="!checkIfUserExistsInReviews()">
 
             <label for="title">Review Title </label>
             <input type="text" id="title" name="title" placeholder="Review Title:" [(ngModel)]="reviewForm.title">

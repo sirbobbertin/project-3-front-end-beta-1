@@ -219,4 +219,13 @@ export class ProductPageComponent implements OnInit {
   }
 
 
+  checkIfUserExistsInReviews() {
+    let userFound = false;
+    this.reviews.forEach( review => {
+      if (review.userId == this.userId) userFound = true;
+    })
+    return userFound;
+  }
+
+
 }
