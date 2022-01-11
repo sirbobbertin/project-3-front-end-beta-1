@@ -1,18 +1,18 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {PurchasedItemService} from "./purchased-item.service";
 
-import { AuthService } from './auth.service';
 
-describe('AuthService', () => {
+describe('PurchasedItemService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule 
+        HttpClientTestingModule
       ],
       declarations: [
-        AuthService
+        PurchasedItemService
       ],
     }).compileComponents();
   }));

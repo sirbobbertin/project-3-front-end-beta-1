@@ -21,6 +21,5 @@ describe('AdminGuard', () => {
     injector = getTestBed();
     token = injector.get(AuthService);
     guard = injector.get(AdminGuard);
-  
-  });  });
 
+  });  });

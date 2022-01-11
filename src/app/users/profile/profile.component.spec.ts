@@ -12,7 +12,7 @@ describe('ProfileComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule 
+        HttpClientTestingModule
       ],
       declarations: [
         ProfileComponent
