@@ -12,8 +12,6 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AdminComponent implements OnInit {
   row: any;
-  toggleDiscountTable: boolean = false;
-  toggleProductTable: boolean = false;
   //Arrays, Objects, & string
   allProducts: Product[] = [];
 
@@ -97,34 +95,6 @@ export class AdminComponent implements OnInit {
     this.loadDiscountProducts();
     this.loadProducts();
   }
-
-  //Toggle Buttons
-  displayProducts(){
-    this.toggleProductTable=true;
-    this.toggleDiscountTable=false;
-
-    // if(this.toggleDiscountTable==false){
-     
-    //    this.toggleProductTable=true;
-    //    this.toggleDiscountTable=false;
-    //   this.ngOnInit();
-    // } else{
-    //    this.toggleProductTable=false;
-    // }
-  }
-
-    displayDiscounts(){
-      this.toggleDiscountTable=true;
-      this.toggleProductTable=false;
-      // if(this.toggleProductTable==false){
-      //   // this.toggleProductTable==true;
-      //   this.toggleDiscountTable=true;
-      //   this.toggleProductTable=false;
-      // } else{
-      //   this.toggleProductTable=false;
-      // }
-
-  }
   //Load all all Products
   loadProducts() {
     this.productService.getAllProductsService().subscribe(
@@ -139,7 +109,6 @@ export class AdminComponent implements OnInit {
           }
         }
         this.allProducts = response;
-        this.allDiscountProducts = response;
       },
       (error: any) => {
         this.errorProductMsg = "Unable to get allProducts - Try later";
@@ -172,7 +141,6 @@ export class AdminComponent implements OnInit {
     this.newProduct.productQty = this.formValueProduct.value.product_qty;
 
     // Let's post the data through the post request in service
-    if(this.newProduct.productCost > 0 &&  this.newProduct.productQty>0){
     this.productService.addProductsService(this.newProduct).subscribe(
       (response: any) => {
         this.loadProducts();
@@ -188,9 +156,7 @@ export class AdminComponent implements OnInit {
     ref?.click();
     this.formValue.reset();
     this.router.navigate(['admin'])
-    }else{
-      alert("Make sure to enter values above 0 for Product Cost and Product Quantity");
-    }
+
   }
 
   //As per Poon no direct code to be used for refreshing the S.P.A. 
@@ -235,7 +201,6 @@ export class AdminComponent implements OnInit {
     
     console.log(this.formValue.value.image_url);
     //add more later if needed
-    if(this.productObject.productCost > 0 && this.productObject.productQty > 0){
     this.productService.updateProductsService(this.productObject).subscribe(
       (response) => {
         alert("Product was updated successfully");
@@ -249,9 +214,6 @@ export class AdminComponent implements OnInit {
         //Reload the page
         this.loadProducts();
       })
-    } else {
-      alert("Make sure to enter values above 0 for Product Cost and Product Quantity");
-    }
   }
   // delete a product
   deleteProduct(pId: number) {
@@ -317,7 +279,6 @@ export class AdminComponent implements OnInit {
     this.newDiscount.productId = this.discountObject.productId;
 
     // Let's post the data through the post request in service
-    if(this.newDiscount.discountPercentage > 0){
     this.productService.addDiscountService(this.newDiscount).subscribe(
       (response: any) => {
         this.loadDiscountProducts();
@@ -335,16 +296,12 @@ export class AdminComponent implements OnInit {
     //Reload the page
     this.loadDiscountProducts();
     this.loadProducts();
-    } else{
-      alert("Invalid number: "+this.newDiscount.discountPercentage+ " Make sure the percentage is a positive value")
-    }
   }
   // for updating Discount Products
   updateDiscountProducts() {
     this.discountObject.discountPercentage = this.formValueDiscount.value.discount_percentage;
     this.discountObject.discountDescription = this.formValueDiscount.value.discount_description;
     //add more later if needed
-    if(this.discountObject.discountPercentage>0){
     this.productService.updateDiscountService(this.discountObject).subscribe(
       (response: any) => {
         //Let's reload the page once update is done
@@ -359,9 +316,6 @@ export class AdminComponent implements OnInit {
         this.loadDiscountProducts();
         this.loadProducts();
       })
-    } else{
-      alert("Invalid number: "+this.newDiscount.discountPercentage+ " Make sure the percentage is a positive value")
-    }
   }
   //For Deleting Discount Products
   deleteDiscountProducts() {
