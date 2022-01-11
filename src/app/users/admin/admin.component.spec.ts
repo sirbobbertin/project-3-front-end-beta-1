@@ -55,7 +55,7 @@ describe('AdminComponent', () => {
     //Test case 1
     it('should return expected products by calling once', () => {
       productService.getAllProductsService().subscribe(
-        prods => expect(prods).toEqual(expectedProducts,'should  have empty product array'),
+        prods => expect(prods).toEqual(expectedProducts,'should have product array'),
         fail
       );
 
