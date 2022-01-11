@@ -27,5 +27,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('rev-tech');
   });
 
-
 });
