@@ -12,6 +12,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AdminComponent implements OnInit {
   row: any;
+  toggleDiscountTable: boolean = false;
+  toggleProductTable: boolean = false;
   //Arrays, Objects, & string
   allProducts: Product[] = [];
   productObject: Product = new Product();
@@ -93,6 +95,34 @@ export class AdminComponent implements OnInit {
     this.loadDiscountProducts();
     this.loadProducts();
   }
+
+  //Toggle Buttons
+  displayProducts(){
+    this.toggleProductTable=true;
+    this.toggleDiscountTable=false;
+
+    // if(this.toggleDiscountTable==false){
+     
+    //    this.toggleProductTable=true;
+    //    this.toggleDiscountTable=false;
+    //   this.ngOnInit();
+    // } else{
+    //    this.toggleProductTable=false;
+    // }
+  }
+
+    displayDiscounts(){
+      this.toggleDiscountTable=true;
+      this.toggleProductTable=false;
+      // if(this.toggleProductTable==false){
+      //   // this.toggleProductTable==true;
+      //   this.toggleDiscountTable=true;
+      //   this.toggleProductTable=false;
+      // } else{
+      //   this.toggleProductTable=false;
+      // }
+
+  }
   //Load all all Products
   loadProducts() {
     this.productService.getAllProductsService().subscribe(
@@ -173,7 +203,9 @@ export class AdminComponent implements OnInit {
     this.formValue.controls["product_category"].setValue(row.productCategory);
     this.formValue.controls["product_description"].setValue(row.productDescription);
     this.formValue.controls["product_qty"].setValue(row.productQty);
-    this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
+    // this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
+    this.formValue.controls["image_url"].setValue("");
+    console.log(row.imageUrl)
 
     //Reload the page
     this.loadProducts();
@@ -186,7 +218,8 @@ export class AdminComponent implements OnInit {
     this.productObject.productCategory = this.formValue.value.product_category;
     this.productObject.productDescription = this.formValue.value.product_description;
     this.productObject.productQty = this.formValue.value.product_qty;
-    console.log(this.formValue.value.image_url);
+    this.productObject.imageUrl = this.productObject.imageUrl;
+    // console.log(this.formValue.value.image_url);
     //add more later if needed
     this.productService.updateProductsService(this.productObject).subscribe(
       (response) => {
