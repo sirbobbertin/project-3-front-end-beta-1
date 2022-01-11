@@ -12,6 +12,7 @@ import { ProfileComponent } from './users/profile/profile.component';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
 import {ConfirmationCheckoutComponent} from "./shop/confirmation-checkout/confirmation-checkout.component";
 import {OrderHistoryComponent} from "./shop/order-history/order-history.component";
+import {CheckoutConfirmationComponent} from "./shop/checkout-confirmation/checkout-confirmation.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -26,8 +27,10 @@ const routes: Routes = [
   { path: "product-page/:productId", component: ProductPageComponent },
   { path: "confirmation-checkout/:sentTransaction", component: ConfirmationCheckoutComponent },
   { path: "order-history", component: OrderHistoryComponent },
+  { path: "app-checkout-confirmation", component: CheckoutConfirmationComponent },
 
 ];
+
 
 @NgModule({
   imports: [
