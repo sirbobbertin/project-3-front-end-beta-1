@@ -153,6 +153,8 @@
       <td *ngIf="toggleDiscountTable==true">{{row.productQty}}</td>
       <td *ngIf="toggleDiscountTable==true">{{row.productSku}}</td>
       <td *ngIf="toggleDiscountTable==true">{{row.productDescription}}</td>
+      <td *ngIf="toggleDiscountTable==true"><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
+      </td>
       <td *ngIf="toggleDiscountTable==true"> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
           data-bs-target="#exampleModal3" class="btn btn-warning"><i class="fa fa-edit">Update</i></button>
       </td>
@@ -171,7 +173,7 @@
       <td *ngIf="toggleProductTable==true">{{row.productQty}}</td>
       <td *ngIf="toggleProductTable==true">{{row.productSku}}</td>
       <td *ngIf="toggleProductTable==true">{{row.productDescription}}</td>
-      <td><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
+      <td *ngIf="toggleProductTable==true"><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
       </td>
       <td *ngIf="toggleProductTable==true"> <button (click)="onEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
           data-bs-target="#exampleModal" class="btn btn-info"><i class="fa fa-edit">Update</i></button>
@@ -386,7 +388,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="updateDiscountProducts()" class="btn btn-primary">Update Discount</button>
+        <button type="button" (click)="updateDiscountProducts()" class="btn btn-primary" data-bs-toggle="modal">Update Discount</button>
       </div>
     </div>
   </div>
