@@ -414,6 +414,18 @@ export class AdminComponent implements OnInit {
     this.formValueDiscountDelete.controls["discount_id"].setValue(row.discountId);
     this.deleteProductId = row.productId;
     this.deleteDiscountId = row.discountId;
+    //To update products on discount-side
+    this.productObject.productId = row.productId;
+    //The input Text fields to change values for
+    this.formValue.controls["product_sku"].setValue(row.productSku);
+    this.formValue.controls["product_name"].setValue(row.productName);
+    this.formValue.controls["product_cost"].setValue(row.productCost);
+    this.formValue.controls["product_category"].setValue(row.productCategory);
+    this.formValue.controls["product_description"].setValue(row.productDescription);
+    this.formValue.controls["product_qty"].setValue(row.productQty);
+    //To Prevent image being lost - store its url in a variable here
+    this.storeImgUrl =  row.imageUrl;
+    this.formValue.controls["image_url"].setValue(this.productObject.imageUrl);
     //Reload the page
     this.loadDiscountProducts();
     this.loadProducts();
