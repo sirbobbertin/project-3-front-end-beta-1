@@ -139,7 +139,6 @@ export class AdminComponent implements OnInit {
           }
         }
         this.allProducts = response;
-        this.allDiscountProducts = response;
       },
       (error: any) => {
         this.errorProductMsg = "Unable to get allProducts - Try later";
@@ -357,7 +356,6 @@ export class AdminComponent implements OnInit {
         this.router.navigate(['admin'])
         //Reload the page
         this.loadDiscountProducts();
-        this.loadProducts();
       })
     } else{
       alert("Invalid number: "+this.newDiscount.discountPercentage+ " Make sure the percentage is a positive value")

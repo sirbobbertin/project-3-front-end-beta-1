@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
 ​
 
 
-      this.showAdmin = this.roles.includes('ROLE_ADMIN');
+    this.showAdmin = this.roles.includes('ROLE_ADMIN');
     }
     this.editUser.user_id = this.currentUser.user_id;
     this.editUser.password = this.currentUser.password;
