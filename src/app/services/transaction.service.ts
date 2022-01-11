@@ -21,7 +21,7 @@ export class TransactionService {
    }
 
   sendTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.baseUrl, transaction, this.header);
+    return this.http.post<Transaction>(this.baseUrl + "/post", transaction, this.header);
   }
 
 
