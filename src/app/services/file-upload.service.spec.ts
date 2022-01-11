@@ -5,7 +5,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FileUploadService } from './file-upload.service';
 
 describe('FileUploadService', () => {
+  let component: FileUploadService;
   let service: FileUploadService;
+  // let fixture: ComponentFixture<FileUploadService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

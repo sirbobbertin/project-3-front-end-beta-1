@@ -1,20 +1,41 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Transaction } from '../models/transaction.model';
+import { TokenStorageService } from './token-storage.service';
 
 import { TransactionService } from './transaction.service';
+
 
 describe('TransactionService', () => {
   let service: TransactionService;
 
   beforeEach(() => {
+    const tokenStorageServiceStub = () => ({ getToken: () => ({}) });
     TestBed.configureTestingModule({
-      imports:[RouterTestingModule,HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        TransactionService,
+        { provide: TokenStorageService, useFactory: tokenStorageServiceStub }
+      ]
     });
     service = TestBed.inject(TransactionService);
   });
 
-  it('should be created', () => {
+  it('can load instance', () => {
     expect(service).toBeTruthy();
+  });
+
+  describe('sendTransaction', () => {
+    it('makes expected calls', () => {
+      const httpTestingController = TestBed.inject(HttpTestingController);
+      const transactionStub: Transaction = <any>{};
+      service.sendTransaction(transactionStub).subscribe(res => {
+        expect(res).toEqual(transactionStub);
+      });
+      const req = httpTestingController.expectOne('HTTP_ROUTE_GOES_HERE');
+      expect(req.request.method).toEqual('POST');
+      req.flush(transactionStub);
+      httpTestingController.verify();
+    });
   });
 });

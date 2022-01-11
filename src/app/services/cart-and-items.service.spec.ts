@@ -3,18 +3,24 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CartAndItemsService } from './cart-and-items.service';
+import { TokenStorageService } from './token-storage.service';
 
 describe('CartAndItemsService', () => {
   let service: CartAndItemsService;
 
   beforeEach(() => {
+    const tokenStorageServiceStub = () => ({ getToken: () => ({}) });
     TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule,RouterTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [
+        CartAndItemsService,
+        { provide: TokenStorageService, useFactory: tokenStorageServiceStub }
+      ]
     });
     service = TestBed.inject(CartAndItemsService);
   });
 
-  it('should be created', () => {
+  it('can load instance', () => {
     expect(service).toBeTruthy();
   });
 });
