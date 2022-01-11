@@ -119,7 +119,7 @@ export class CheckoutComponent implements OnInit {
     this.updateMultiProducts();
     this.intervalId = setInterval(() => {
       this.displayStyle = "none";
-      this.router.navigate(['/product']);
+      this.router.navigate(['/checkout-confirmation']);
     }, 2000);
   }
   ngOnDestroy() {
