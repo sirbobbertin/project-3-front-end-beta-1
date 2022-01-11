@@ -96,19 +96,42 @@
 <div style="overflow-x:auto;">
   <br>
   <h2>Product Inventory</h2>
+  <p style="padding-left: 2in;padding-right: 2in; text-align: center;">
+    Here, admins will be able to add/modify products to there needs by clicking the following buttons:</p>
+   <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
+    Add Product: to add products to the store</p>
+    <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
+    Update (Orange): to update discounts for a product</p>
+    <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
+    Delete (Black): will give you the choice to either delete a discount for a product or to delete both</p>
+    <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
+      Update (Blue): to update products</p>
+      <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
+        Delete (Red): to delete a product</p>
+        <p style="padding-left: 2in;padding-right: 2in;text-align: center;">
+          Add Discount: to add a product</p>
+  
   <br>
   &nbsp;
 
+  <button type="button" id="displayProdBtn" class="btn btn-primary" (click)="displayProducts()">
+    Display Product Inventory
+  </button>
+  <button type="button" id="displayDiscountBtn" class="btn btn-primary" (click)="displayDiscounts()">
+    Display Product Discounts
+  </button>
   <button type="button" id="addProdBtn" class="btn btn-primary" data-toggle="modal" data-target="#addproductCenter">
     Add Product 
-  </button>
+  </button> 
+
   <br><br>
-  <h3>Product Table</h3>
+  <h3>Product & Discount Details</h3>
   <table>
     <tr>
       <th scope="col">Product Id </th>
       <th scope="col">Product Name</th>
       <th scope="col">Product Category</th>
+      <th scope="col">Product Percentage</th>
       <th scope="col">Product Cost</th>
       <th scope="col">Product Quantity</th>
       <th scope="col">Product SKU</th>
@@ -119,30 +142,54 @@
       <th scope="col">Add</th>
       <th></th>
     </tr>
-    <tr *ngFor="let row of allProducts">
-      <td>{{row.productId}}</td>
-      <td>{{row.productName}}</td>
-      <td>{{row.productCategory}}</td>
-      <td>{{row.productCost | currency}}</td>
-      <td>{{row.productQty}}</td>
-      <td>{{row.productSku}}</td>
-      <td>{{row.productDescription}}</td>
-      <td><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
+      
+      <tr *ngFor="let row of allDiscountProducts">
+        
+      <td *ngIf="toggleDiscountTable==true">{{row.productId}}</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.productName}}</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.productCategory}}</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.discountPercentage}}%</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.productCost-row.productCost*(row.discountPercentage/100) | currency }}</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.productQty}}</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.productSku}}</td>
+      <td *ngIf="toggleDiscountTable==true">{{row.productDescription}}</td>
+      <td *ngIf="toggleDiscountTable==true"><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
       </td>
-      <td> <button (click)="onEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
+      <td *ngIf="toggleDiscountTable==true"> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
+          data-bs-target="#exampleModal3" class="btn btn-warning"><i class="fa fa-edit">Update</i></button>
+      </td>
+      <td *ngIf="toggleDiscountTable==true"> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-secondary"
+          data-bs-toggle="modal" data-bs-target="#exampleModal5"class="btn btn-dark"><i class="fa fa-trash-o"></i>Delete</button>
+      </td>
+    </tr>
+
+    <tr *ngFor="let row of allProducts">
+     
+      <td *ngIf="toggleProductTable==true">{{row.productId}}</td>
+      <td *ngIf="toggleProductTable==true">{{row.productName}}</td>
+      <td *ngIf="toggleProductTable==true">{{row.productCategory}}</td>
+      <td *ngIf="toggleProductTable==true"></td>
+      <td *ngIf="toggleProductTable==true">{{row.productCost | currency}}</td>
+      <td *ngIf="toggleProductTable==true">{{row.productQty}}</td>
+      <td *ngIf="toggleProductTable==true">{{row.productSku}}</td>
+      <td *ngIf="toggleProductTable==true">{{row.productDescription}}</td>
+      <td *ngIf="toggleProductTable==true"><img id="image-size" class="" src="{{row.imageUrl}}" width="90px" height="90px" />
+      </td>
+      <td *ngIf="toggleProductTable==true"> <button (click)="onEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
           data-bs-target="#exampleModal" class="btn btn-info"><i class="fa fa-edit">Update</i></button>
       </td>
-      <td> <button (click)="deleteProduct(row.productId)" type="button" class="btn btn-secondary" data-bs-toggle=""
+      <td *ngIf="toggleProductTable==true"> <button (click)="deleteProduct(row.productId)" type="button" class="btn btn-secondary" data-bs-toggle=""
           class="btn btn-danger"><i class="fa fa-trash-o">Delete</i></button>
       </td>
-      <td> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
+      <td *ngIf="toggleProductTable==true"> <button (click)="onDiscountEditRow(row)" type="button" class="btn btn-success" data-bs-toggle="modal"
         data-bs-target="#exampleModal4" class="btn btn-info"><i class="fa fa-edit" >Add Discount</i></button>
     </td>
     </tr>
+
   </table>
   <br><br>
 
-  <h3>Discount Table</h3>&nbsp;<p> To edit details of products listed in the discount table, please remove applied discount first.</p>
+  <!-- <h3>Discount Table</h3>&nbsp;<p> To edit details of products listed in the discount table, please remove applied discount first.</p>
   <table>
     <tr>
       <th scope="col">Product Id </th>
@@ -173,7 +220,7 @@
           data-bs-toggle="modal" data-bs-target="#exampleModal5"class="btn btn-dark"><i class="fa fa-trash-o"></i>Delete</button>
       </td>
     </tr>
-  </table>
+  </table> -->
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -341,7 +388,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="updateDiscountProducts()" class="btn btn-primary">Update Discount</button>
+        <button type="button" (click)="updateDiscountProducts()" class="btn btn-primary" data-bs-toggle="modal">Update Discount</button>
       </div>
     </div>
   </div>
