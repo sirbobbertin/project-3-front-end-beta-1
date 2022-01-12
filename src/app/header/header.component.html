@@ -1,7 +1,7 @@
-
+<img src="https://i.postimg.cc/xdm3qnyD/Picture1.png" scale="0" width="10%">
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Brand/logo -->
-    <a class="navbar-brand" href="#">Logo</a>
+    <!-- <a class="navbar-brand" href="#">Logo</a> -->
     
     <!-- Links -->
     <ul class="navbar-nav">
@@ -32,6 +32,11 @@
     <li 
       class="nav-item"
       *ngIf="isLogged()">
+      <a class="nav-link" routerLink="order-history">Order History</a>
+    </li>
+    <li 
+      class="nav-item"
+      *ngIf="isLogged()">
       <a class="nav-link" (click)="logout()">Logout</a>
     </li>
     <li 
@@ -41,4 +46,5 @@
     </a>
     </li>
   </ul>
+
 </nav>

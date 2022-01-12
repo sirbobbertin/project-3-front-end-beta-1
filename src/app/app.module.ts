@@ -14,7 +14,6 @@ import { ProfileComponent } from './users/profile/profile.component';
 import { ProductPageComponent } from './shop/product-page/product-page.component';
 import { ConfirmationCheckoutComponent } from './shop/confirmation-checkout/confirmation-checkout.component';
 import { OrderHistoryComponent } from './shop/order-history/order-history.component';
-import {CheckoutConfirmationComponent} from "./shop/checkout-confirmation/checkout-confirmation.component";
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import {CheckoutConfirmationComponent} from "./shop/checkout-confirmation/checko
     ProductPageComponent,
     ConfirmationCheckoutComponent,
     OrderHistoryComponent,
-    CheckoutConfirmationComponent
   ],
   imports: [
     BrowserModule,

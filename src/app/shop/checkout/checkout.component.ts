@@ -49,8 +49,13 @@ export class CheckoutComponent implements OnInit {
     this.userId = this.tokenService.getUser().user_id;
     console.log(this.tokenService.getUser().user_id);
     if (this.userId <= 0) this.userId = 1; //Remove this line if not testing
-    this.displayAllCarts()
+    this.displayAllCarts();
   }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
+
   displayAllCarts() {
     this.cartAndItemsService.getCartAndItemsWithUserIdService(this.userId).subscribe((response) => {
       this.cartAndItems = response;

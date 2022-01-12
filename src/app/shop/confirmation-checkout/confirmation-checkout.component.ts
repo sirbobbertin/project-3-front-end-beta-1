@@ -18,7 +18,6 @@ export class ConfirmationCheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.transId = this.activatedRoute.snapshot.paramMap.get("sentTransaction");
-    console.log("my product " + this.transId);
     this.loadItems();
   }
 
@@ -27,8 +26,6 @@ export class ConfirmationCheckoutComponent implements OnInit {
     console.log("start load");
     this.purchasedItemService.getPurchasedItemsByTransaction(this.transId).subscribe((response) => {
       this.purchasedItemProduct = response;
-      console.log("tester test");
-      console.log(response)
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
       console.log(error);
