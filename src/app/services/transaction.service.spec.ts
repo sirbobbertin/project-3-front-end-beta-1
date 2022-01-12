@@ -25,17 +25,4 @@ describe('TransactionService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('sendTransaction', () => {
-    it('makes expected calls', () => {
-      const httpTestingController = TestBed.inject(HttpTestingController);
-      const transactionStub: Transaction = <any>{};
-      service.sendTransaction(transactionStub).subscribe(res => {
-        expect(res).toEqual(transactionStub);
-      });
-      const req = httpTestingController.expectOne('HTTP_ROUTE_GOES_HERE');
-      expect(req.request.method).toEqual('POST');
-      req.flush(transactionStub);
-      httpTestingController.verify();
-    });
-  });
 });
