@@ -13,6 +13,7 @@ export class TokenStorageService {
 
   signOut(): void {
     window.sessionStorage.clear();
+    this.isLoggedIn = false;
   }
 
   public saveToken(token: string): void {
@@ -25,6 +26,7 @@ export class TokenStorageService {
   }
 
   public saveUser(user: any): void {
+    this.isLoggedIn = true;
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }

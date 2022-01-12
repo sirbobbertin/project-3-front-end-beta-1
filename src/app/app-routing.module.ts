@@ -10,7 +10,8 @@ import { LoginComponent } from './users/login/login.component';
 import { RegisterComponent } from './users/register/register.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
-import { CheckoutConfirmationComponent } from './shop/checkout-confirmation/checkout-confirmation.component';
+import {ConfirmationCheckoutComponent} from "./shop/confirmation-checkout/confirmation-checkout.component";
+import {OrderHistoryComponent} from "./shop/order-history/order-history.component";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -23,9 +24,10 @@ const routes: Routes = [
   { path: '', redirectTo: 'product', pathMatch: 'full'},
   { path: "product-page", component: ProductPageComponent },
   { path: "product-page/:productId", component: ProductPageComponent },
-  { path: "checkout-confirmation", component: CheckoutConfirmationComponent }
-
+  { path: "confirmation-checkout/:sentTransaction", component: ConfirmationCheckoutComponent, canActivate: [AdminGuard]},
+  { path: "order-history", component: OrderHistoryComponent, canActivate: [AdminGuard]},
 ];
+
 
 @NgModule({
   imports: [

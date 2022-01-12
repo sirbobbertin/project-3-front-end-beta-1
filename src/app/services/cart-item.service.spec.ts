@@ -2,9 +2,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AuthService } from './auth.service';
+import { CartItemService } from './cart-item.service';
 
-describe('AuthService', () => {
+describe('CartItemService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -12,7 +12,7 @@ describe('AuthService', () => {
         HttpClientTestingModule 
       ],
       declarations: [
-        AuthService
+        CartItemService
       ],
     }).compileComponents();
   }));

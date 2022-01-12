@@ -14,7 +14,7 @@ describe('UserService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule 
+        HttpClientTestingModule
       ],
       declarations: [
         UserService

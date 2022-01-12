@@ -12,7 +12,8 @@ import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { StoreProductComponent } from './shop/store-product/store-product.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { ProductPageComponent } from './shop/product-page/product-page.component';
-import { CheckoutConfirmationComponent } from './shop/checkout-confirmation/checkout-confirmation.component';
+import { ConfirmationCheckoutComponent } from './shop/confirmation-checkout/confirmation-checkout.component';
+import { OrderHistoryComponent } from './shop/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +26,14 @@ import { CheckoutConfirmationComponent } from './shop/checkout-confirmation/chec
     StoreProductComponent,
     ProfileComponent,
     ProductPageComponent,
-    CheckoutConfirmationComponent,
+    ConfirmationCheckoutComponent,
+    OrderHistoryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
   ],

@@ -9,7 +9,7 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule 
+        HttpClientTestingModule
       ],
       declarations: [
         RegisterComponent

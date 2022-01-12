@@ -1,8 +1,8 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { CartAndItemsService } from './../../services/cart-and-items.service';
 import { CartItem } from './../../models/cart.model';
-import { HttpClient } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { CartItemService } from 'src/app/services/cart-item.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -10,26 +10,27 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CheckoutComponent } from './checkout.component';
 import { CartAndItems } from 'src/app/models/cart.model';
-import { Observable, of } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-//Assert
+import { of } from 'rxjs';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { By } from '@angular/platform-browser';
 describe('CheckoutComponent', () => {
+  // catch to all services we need
   let component: CheckoutComponent;
   let fixture: ComponentFixture<CheckoutComponent>;
   let cartItemService: CartItemService;
-  let cartService: CartService;
   let cartAndItemsService: CartAndItemsService;
-  let transactionService: TransactionService;
-  let productService: ProductService;
-  let router: Router;
   let activateRoute: ActivatedRoute;
-
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-
   let expectedReq: CartAndItems;
-
-  //Dummy data to be returned by request.
+  let removeitem: CartAndItems;
+  let changeQuant: CartItem
+  //fake data to be returned by request.
+  changeQuant = {
+    "cartItemId": 1,
+    "cartId": 2,
+    "productId": 1,
+    "cartQty": 5,
+  }
   expectedReq =
   {
     "cartId": 1,
@@ -81,54 +82,45 @@ describe('CheckoutComponent', () => {
       }
     ]// as unknown as CartAndItemsService[]
   }
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CheckoutComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      // for regular test use HttpClientModule
+      // HttpClientTestingModule incloud the mock implemntation of HTTP service as get, post
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        HttpClientModule],
       providers: [
         CartItemService,
         CartService,
         CartAndItemsService,
         TransactionService,
-        ProductService
+        ProductService,
+        Storage
       ]
-    }).compileComponents();
+    }).compileComponents()
   });
-
+  //-------------------------------------------------------------------------------------------
   beforeEach(() => {
-    TestBed.configureTestingModule({
-    });
+    TestBed.configureTestingModule({});
+    // prepare fixture
     fixture = TestBed.createComponent(CheckoutComponent);
+    //make an instance from the component
     component = fixture.componentInstance;
     fixture.detectChanges();
-
     activateRoute = TestBed.inject(ActivatedRoute);
-    httpClient = TestBed.inject(HttpClient);
+    // HttpTestingController contain tools help you to control the request
     httpTestingController = TestBed.inject(HttpTestingController);
   });
-
-  it('display All Carts on Service method', () => {
-    const displayservice: CartAndItemsService = TestBed.get(CartAndItemsService);
-    let displayAll = spyOn(displayservice, 'getCartAndItemsWithUserIdService').and.returnValue(of(expectedReq)); // rule
-
-    component.displayAllCarts();
-    expect(component.cartAndItems).toEqual(expectedReq);
-
-    // const mySpy = jasmine.createSpyObj('', ['myCart']);
-    // mySpy.myCart.and.returnValue(expectedReq);
-    // expect(mySpy.myCart()).toBe('', 'wrong data')
-
-    // expect(displayservice.getCartAndItemsWithUserIdService).toBe(expectedReq),
-    //   fail
-
-  });
-
+  //-------------------------------------------------------------------------------------------
+  // aftereach will run after each execute (it)
   afterEach(() => {
     //httpTestingController.verify(); //Verifies that no requests are outstanding.
-    httpTestingController.expectOne("http://localhost:7777/api/cart-and-items/user/undefined").flush(null, { status: 200, statusText: 'Ok' });// closing the request
+    // expectOne will check if the url is executed
+    httpTestingController.expectOne("http://localhost:7777/api/cart-and-items/user/undefined/get").flush(null, { status: 200, statusText: 'Ok' });// closing the request
   });
-
+  
 });
 
 
@@ -165,12 +157,3 @@ describe('CheckoutComponent', () => {
 
 
     // });
-
-
-
-
-
-
-
-
-
