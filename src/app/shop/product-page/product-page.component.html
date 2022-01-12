@@ -62,7 +62,7 @@
     <article class="card mt-5">
       <div class="card-body">
         <div class="container">
-          <form action="action_page.php" *ngIf="!checkIfUserExistsInReviews()">
+          <form  (ngSubmit)="postReview()">
 
             <label for="title">Review Title </label>
             <input type="text" id="title" name="title" placeholder="Review Title:" [(ngModel)]="reviewForm.title">
@@ -81,7 +81,7 @@
                       placeholder="Write your review here"
                       style="height:200px" [(ngModel)]="reviewForm.review"></textarea>
 
-            <input type="submit" value="Submit" (click)="postReview()">
+            <input type="submit" value="Submit">
 
           </form>
         </div>
