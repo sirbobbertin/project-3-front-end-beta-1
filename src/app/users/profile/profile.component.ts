@@ -109,29 +109,23 @@ export class ProfileComponent implements OnInit {
   }
 
   updatedUser(){
-    console.log(this.editUser)
     this.userService.updateUserService(this.editUser).subscribe(
       (response) => {
      this.currentUser = response      
-      console.log(response);
       },
     (error)=> {
-        console.log(error);
       }
     );
   }
 
   uploadUserImage(imageInput: any) {
-    const reader = new FileReader(); console.log(reader);
-    console.log(imageInput.target.files[0]);
+    const reader = new FileReader();
     this.fileUploadService.onUpload(imageInput.target.files[0]).subscribe({
       next: async (response) => {
-        console.log(response);
         this.form.userImage = response;  
         this.currentUser.imageUrl = response;     
       },
       error: err => {
-        console.log(err);
       }
     })
 

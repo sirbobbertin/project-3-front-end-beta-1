@@ -56,8 +56,6 @@ export class ProductPageComponent implements OnInit {
     this.userId = this.tokenService.getUser().user_id;
     let param = this.activatedRoute.snapshot.paramMap.get("productId");
     this.productId = (param == null) ? 0 : parseInt(param);
-
-    console.log(this.productId);
     this.loadData();
     this.loadReviews();
 
@@ -65,23 +63,19 @@ export class ProductPageComponent implements OnInit {
   loadData() {
     this.productAndDiscountService.getProductAndDiscountService(this.productId).subscribe({
       next: response => {
-        console.log(response);
         this.productAndDiscount = response;
         this.productLoaded = true;
       },
       error: error => {
-        console.log(error);
       }
     });
     // if(this.user.userId <= 0) this.user.userId = 1; //Remove this line if not testing
-    console.log(this.userId);
     this.cartAndItemsService.getCartAndItemsWithUserIdService(this.userId).subscribe({
       next: response => {
         this.cartAndItems = response;
 
       },
       error: error => {
-        console.log(error);
       }
     });
   }
@@ -90,14 +84,12 @@ export class ProductPageComponent implements OnInit {
     this.item.productId = this.productId;
     this.item.cartQty = this.counter;
     this.item.cartItemId = -1;
-    console.log(this.item);
     this.cartItemService.addNewItemService(this.item).subscribe({
       next: response => {
         // this.goToCheckout()
         this.loadData();
       },
       error: error => {
-        console.log(error);
       }
     });
   }
@@ -151,7 +143,6 @@ export class ProductPageComponent implements OnInit {
         this.sortReviews();
       },
       error: error => {
-        console.log(error);
       }
     });
   }
@@ -184,7 +175,6 @@ export class ProductPageComponent implements OnInit {
         this.loadReviews();
       },
       error: error => {
-        console.log(error);
       }
     });
   }

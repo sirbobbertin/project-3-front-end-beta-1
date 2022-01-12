@@ -47,7 +47,6 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     //Line below from authService is not working.
     this.userId = this.tokenService.getUser().user_id;
-    console.log(this.tokenService.getUser().user_id);
     if (this.userId <= 0) this.userId = 1; //Remove this line if not testing
     this.displayAllCarts();
   }
@@ -61,7 +60,6 @@ export class CheckoutComponent implements OnInit {
       this.cartAndItems = response;
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
-      console.log(error);
     });
   }
   getItemsTotal(): any {
@@ -113,8 +111,6 @@ export class CheckoutComponent implements OnInit {
     this.cart.cartTotal = parseInt(this.getItemsTotal());
     this.cart.cartRemoved = true
     this.cart.cartPaid = true
-    console.log(this.cart);
-    console.log(this.cartAndItems);
     this.cartService.updateCartService(this.cart).subscribe((response) => {
       response;
     }, error => {

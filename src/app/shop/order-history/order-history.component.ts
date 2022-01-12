@@ -27,14 +27,10 @@ export class OrderHistoryComponent implements OnInit {
 
 
   loadItems() {
-    console.log("start load");
     this.purchasedItemService.getPurchasedItemsByUser(this.userId).subscribe((response) => {
       this.purchasedItemProduct = response;
-      console.log("tester test");
-      console.log(response)
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
-      console.log(error);
     });
   }
 

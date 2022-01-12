@@ -23,12 +23,10 @@ export class ConfirmationCheckoutComponent implements OnInit {
 
 
   loadItems() {
-    console.log("start load");
     this.purchasedItemService.getPurchasedItemsByTransaction(this.transId).subscribe((response) => {
       this.purchasedItemProduct = response;
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
-      console.log(error);
     });
   }
 
