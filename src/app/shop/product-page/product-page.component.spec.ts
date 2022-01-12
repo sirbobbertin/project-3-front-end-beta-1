@@ -1,126 +1,167 @@
-import { HttpClient } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StoreProductComponent } from '../store-product/store-product.component';
-import { ProductService } from 'src/app/services/product.service';
-import { UserService } from 'src/app/services/user.service';
-import { FormBuilder, FormsModule } from '@angular/forms';
-import { Product, ProductAndDiscount } from 'src/app/models/product.model';
+import { LoginComponent } from 'src/app/users/login/login.component';
 
-describe('StoreProductComponent', () => {
-  let component: StoreProductComponent;
-  let fixture: ComponentFixture<StoreProductComponent>;
+import { ProductPageComponent } from './product-page.component';
+import {HttpClient} from "@angular/common/http";
+import {ProductService} from "../../services/product.service";
+import {FormBuilder, FormsModule, NgControl, ReactiveFormsModule} from "@angular/forms";
+import {ProductAndDiscountService} from "../../services/product-and-discount.service";
+import {Product, ProductAndDiscount} from "../../models/product.model";
+import {CartItem} from "../../models/cart.model";
+import {CartItemService} from "../../services/cart-item.service";
+
+describe('ProductPageComponent', () => {
+  let component: ProductPageComponent;
+  let fixture: ComponentFixture<ProductPageComponent>;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
+  let productAndDiscountService: ProductAndDiscountService;
+  let formTest: NgControl;
   let productService: ProductService;
+  let cartItemService: CartItemService;
+
   beforeEach(async () => {
+
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule,RouterTestingModule,FormsModule],
-      declarations: [ StoreProductComponent ],
-      providers: [ProductService,FormBuilder]
+      imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule],
+      declarations: [ ProductPageComponent ],
+      providers: [ProductAndDiscountService, CartItemService, FormBuilder, NgControl]
     })
-    .compileComponents();
+      .compileComponents();
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    productService = TestBed.inject(ProductService);
+    productAndDiscountService = TestBed.inject(ProductAndDiscountService);
+    cartItemService = TestBed.inject(CartItemService);
+    formTest = TestBed.inject(NgControl);
   });
 
+
+
   beforeEach(() => {
-    fixture = TestBed.createComponent(StoreProductComponent);
+    fixture = TestBed.createComponent(ProductPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('#loadProductPage',() =>{
+    let expectedProduct: any;
+    beforeEach(() => {
+
+      expectedProduct = {productId: 1, productSku:"I9P5XCXP1R913LC2PKEA693",productName:"Xbox One Controller",productCost:49.99,productCategory:"Gaming",
+        productDescription:"Wireless Gaming Controller (Black)",productQty:9,
+        imageUrl:"https://media.istockphoto.com/photos/xbox-one-controller-picture-id472036153?k=20&m=472036153&s=612x612&w=0&h=353Bz7VHG7lr8MdBbse9OkBT3wBFoFKl0Vqm2ivGwAE=",
+        productRemoved:false};
+
+    });
+
+    //Test case 1
+    it('should return expected product and discount details', () => {
+      productAndDiscountService.getProductAndDiscountService(1).subscribe(
+        product => expect(product).toEqual(expectedProduct,'should be null'),
+        fail
+      );
+
+      let require = httpTestingController.match(productAndDiscountService.baseUrl + "/" + 1 + "/get");
+      expect(require[0].request.method).toEqual('GET');
+      require[0].flush(expectedProduct);
+    });
+
+    it('should get product and discount ', () => {
+      productAndDiscountService.getProductAndDiscountService(1).subscribe(
+        product => expect(product).toEqual(expectedProduct,'to be null'),
+        fail
+      );
+
+      let require = httpTestingController.match(productAndDiscountService.baseUrl + "/" + 1 + "/get");
+      expect(require[0].request.method).toEqual('GET');
+      require[0].flush(expectedProduct);
+    });
+
+    //Test case 2
+    it('should be OK not displaying a product', () =>{
+      productAndDiscountService.getProductAndDiscountService(0).subscribe(
+        prods => expect(0).toEqual(0,'productId is equal to 0'),
+        fail
+      );
+      let require = httpTestingController.match(productAndDiscountService.baseUrl + "/" + 0 + "/get");
+      expect(require[0].request.method).toEqual('GET');
+      require[0].flush(null);
+    });
+  })
+
+  describe('#addToCart',() =>{
+    let addedItem: CartItem;
+    let expectedItem: CartItem;
+    beforeEach(() => {
+
+      expectedItem = {
+        cartItemId: 1,
+        cartId: 2,
+        productId: 3,
+        cartQty: 4
+      }
+
+      addedItem = {
+        cartItemId: 1,
+        cartId: 2,
+        productId: 3,
+        cartQty: 4
+      }
+
+
+    });
+
+    //Test case 1
+    it('should POST expected item(s)', () => {
+      cartItemService.addNewItemService(addedItem).subscribe(
+        item => expect(item).toEqual(addedItem,'should  add cart item'),
+        fail
+      );
+
+      const require = httpTestingController.match(cartItemService.baseUrl + "/post");
+      expect(require[0].request.method).toEqual('POST');
+      require[0].flush(expectedItem);
+    });
+
+
   });
 
-  describe('#loadProducts',() =>{
-    let expectedProducts: Product[];
+  describe('#removeFromCart',() =>{
+    let addedItem: CartItem;
+    let expectedItem: CartItem;
     beforeEach(() => {
 
-      expectedProducts = [
-        {productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-        productDescription:"Refrigator and an fun console",productQty:3,
-        imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-        productRemoved:false}
-      ] as Product[];
+      expectedItem = {
+        cartItemId: 1,
+        cartId: 2,
+        productId: 3,
+        cartQty: 4
+      }
+
+      addedItem = {
+        cartItemId: 1,
+        cartId: 2,
+        productId: 3,
+        cartQty: 4
+      }
+
 
     });
 
-    //Test case 1
-    it('should return expected products by calling once', () => {
-      productService.getAllProductsService().subscribe(
-        prods => expect(prods).toEqual(expectedProducts,'should  have empty product array'),
+    it('should update expected item(s)', () => {
+      cartItemService.addNewItemService(addedItem).subscribe(
+        item => expect(item).toEqual(addedItem,'should  add cart item'),
         fail
       );
 
-      const require = httpTestingController.match(productService.productsUrlGetAll);
-      expect(require[0].request.method).toEqual('GET');
-      require[0].flush(expectedProducts);
+      const require = httpTestingController.match(cartItemService.baseUrl + "/post");
+      expect(require[0].request.method).toEqual('POST');
+      require[0].flush(expectedItem);
     });
 
-    //Test case 2
-   it('should be OK returning no products', () =>{
-    productService.getAllProductsService().subscribe(
-      prods => expect(prods.length).toEqual(0,'should have empty product array'),
-      fail
-    );
-    const require = httpTestingController.expectOne(productService.productsUrlGetAll);
-    require.flush([]);
-    });
-  })
 
-
-  describe('#loadDiscountedProducts',() =>{
-    let expectedDiscountProducts: ProductAndDiscount[];
-    beforeEach(() => {
-
-      expectedDiscountProducts = [
-        {productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-        productDescription:"Refrigator and an fun console",productQty:3,
-        imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-        productRemoved:false, discountId:1, discountDescription: "Discounted product", discountPercentage: 5}
-      ] as ProductAndDiscount[];
-
-    });
-
-    //Test case 1
-    it('should return expected discounted products by calling once', () => {
-      productService.getAllDiscountsProductsService().subscribe(
-        prods => expect(prods).toEqual(expectedDiscountProducts,'should  have empty product array'),
-        fail
-      );
-
-      const require = httpTestingController.match(productService.discountProductUrlGet);
-      expect(require[0].request.method).toEqual('GET');
-      require[0].flush(expectedDiscountProducts);
-    });
-
-    //Test case 2
-   it('should be OK returning no products', () =>{
-    productService.getAllDiscountsProductsService().subscribe(
-      prods => expect(prods.length).toEqual(0,'should have empty product array'),
-      fail
-    );
-    const require = httpTestingController.match(productService.discountProductUrlGet);
-    require[0].flush([]);
-    });
-
-    //Test case 3
-    it('should be OK when called mulitple times', () =>{
-      productService.getAllDiscountsProductsService().subscribe();
-      productService.getAllDiscountsProductsService().subscribe(
-        req => expect(req).toEqual(expectedDiscountProducts,'should return expected discount products'),
-        fail
-      );
-      const requests = httpTestingController.match(productService.discountProductUrlGet);
-      expect(requests.length).toEqual(3, 'calls to getAllDiscountedProducts()');
-      requests[0].flush([]); //Return Empty body for first call
-      requests[1].flush(expectedDiscountProducts); //Return expectedEmps in second call
-    })
-  })
-
+  });
 
 });
