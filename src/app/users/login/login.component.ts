@@ -64,4 +64,12 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
+  register() {
+    this.router.navigate(['/register']);
+  }
+
+  product() {
+    this.router.navigate(['/product']);
+  }
+
 }
