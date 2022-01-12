@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenStorageService } from './services/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,12 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'rev-tech';
+  USER_KEY = 'auth-user';
 
 
-  constructor() {
-    window.sessionStorage.clear();
+  constructor(private tokenstorage: TokenStorageService) {
+    if (window.sessionStorage.getItem(this.USER_KEY)!=null){
+     this.tokenstorage.isLoggedIn=true;
+    }   
   }
- 
-
-
 }
