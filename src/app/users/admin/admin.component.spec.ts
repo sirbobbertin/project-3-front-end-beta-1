@@ -22,7 +22,7 @@ describe('AdminComponent', () => {
       declarations: [ AdminComponent ],
       providers: [ProductService, FormBuilder, NgControl]
     })
-    .compileComponents();
+      .compileComponents();
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     productService = TestBed.inject(ProductService);
@@ -45,9 +45,9 @@ describe('AdminComponent', () => {
 
       expectedProducts = [
         {productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-        productDescription:"Refrigator and an fun console",productQty:3,
-        imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-        productRemoved:false}
+          productDescription:"Refrigator and an fun console",productQty:3,
+          imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
+          productRemoved:false}
       ] as Product[];
 
     });
@@ -65,13 +65,13 @@ describe('AdminComponent', () => {
     });
 
     //Test case 2
-   it('should be OK returning no products', () =>{
-    productService.getAllProductsService().subscribe(
-      prods => expect(prods.length).toEqual(0,'should have empty product array'),
-      fail
-    );
-    const require = httpTestingController.match(productService.productsUrlGetAll);
-    require[0].flush([]);
+    it('should be OK returning no products', () =>{
+      productService.getAllProductsService().subscribe(
+        prods => expect(prods.length).toEqual(0,'should have empty product array'),
+        fail
+      );
+      const require = httpTestingController.match(productService.productsUrlGetAll);
+      require[0].flush([]);
     });
   })
 
@@ -82,9 +82,9 @@ describe('AdminComponent', () => {
 
       expectedDiscountProducts = [
         {productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-        productDescription:"Refrigator and an fun console",productQty:3,
-        imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-        productRemoved:false, discountId:1, discountDescription: "Discounted product", discountPercentage: 5}
+          productDescription:"Refrigator and an fun console",productQty:3,
+          imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
+          productRemoved:false, discountId:1, discountDescription: "Discounted product", discountPercentage: 5}
       ] as ProductAndDiscount[];
 
     });
@@ -102,15 +102,15 @@ describe('AdminComponent', () => {
     });
 
     //Test case 2
-   it('should be OK returning no products', () =>{
-    productService.getAllDiscountsProductsService().subscribe(
-      prods => expect(prods.length).toEqual(0,'should have empty product array'),
-      fail
-    );
-    const require = httpTestingController.match(productService.discountProductUrlGet);
-    require[0].flush([]);
-    }); 
-    
+    it('should be OK returning no products', () =>{
+      productService.getAllDiscountsProductsService().subscribe(
+        prods => expect(prods.length).toEqual(0,'should have empty product array'),
+        fail
+      );
+      const require = httpTestingController.match(productService.discountProductUrlGet);
+      require[0].flush([]);
+    });
+
     //Test Case 3
     it('should be OK when called mulitple times', () =>{
       productService.getAllDiscountsProductsService().subscribe();
@@ -133,16 +133,16 @@ describe('AdminComponent', () => {
 
       expectedProduct = [
         {productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-        productDescription:"Refrigator and an fun console",productQty:3,
-        imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-        productRemoved:false}
+          productDescription:"Refrigator and an fun console",productQty:3,
+          imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
+          productRemoved:false}
       ] as Product[];
 
       addedProduct =
-      { productId: 2, productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-      productDescription:"Refrigator and an fun console",productQty:3,
-      imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-      productRemoved:false };
+        { productId: 2, productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
+          productDescription:"Refrigator and an fun console",productQty:3,
+          imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
+          productRemoved:false };
 
     });
 
@@ -167,18 +167,18 @@ describe('AdminComponent', () => {
     let oldProduct: Product;
     beforeEach(() => {
 
-      oldProduct = 
+      oldProduct =
         {productId: 2,productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:500.00,productCategory:"Console",
-        productDescription:"Refrigator and an fun console",productQty:3,
-        imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-        productRemoved:false};
-      
+          productDescription:"Refrigator and an fun console",productQty:3,
+          imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
+          productRemoved:false};
+
 
       updatedProduct =
-      {productId: 2, productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:400.00,productCategory:"Console",
-      productDescription:"Refrigator and an fun console",productQty:3,
-      imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
-      productRemoved:false };
+        {productId: 2, productSku:"FEA86ES5DFA",productName:"ZBox IX Scarlet",productCost:400.00,productCategory:"Console",
+          productDescription:"Refrigator and an fun console",productQty:3,
+          imageUrl:"https://i5.walmartimages.com/asr/be6a800b-bf17-4e6d-8872-d3657d6c7791.3e4037b99ee035280f354118613c8e8b.jpeg",
+          productRemoved:false };
 
     });
 
@@ -209,7 +209,7 @@ describe('AdminComponent', () => {
       ] as Discount[];
 
       addedDiscount =
-      {productId:2, discountId:3, discountDescription: "Discounted product", discountPercentage: 5};
+        {productId:2, discountId:3, discountDescription: "Discounted product", discountPercentage: 5};
 
     });
 
@@ -235,11 +235,11 @@ describe('AdminComponent', () => {
     beforeEach(() => {
       let discId = 2
 
-      oldDiscount = 
+      oldDiscount =
         {productId:1, discountId:discId, discountDescription: "Discounted product", discountPercentage: 5};
 
       updateDiscount =
-      {productId:1, discountId:discId, discountDescription: "Discounted product", discountPercentage: 8};
+        {productId:1, discountId:discId, discountDescription: "Discounted product", discountPercentage: 8};
 
     });
 
@@ -283,7 +283,7 @@ describe('AdminComponent', () => {
 
       const require = httpTestingController.match(productService.discountUrlRemove+"/"+discId);
       expect(require[0].request.method).toEqual('DELETE');
-      
+
       while (expectedDiscountProducts[index].discountId != discId && index < expectedDiscountProducts.length) {
         index++;
       }

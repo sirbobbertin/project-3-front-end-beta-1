@@ -93,8 +93,7 @@ export class StoreProductComponent implements OnInit {
         this.allProducts = response;
       },
       (error) => {
-        this.errorProductMsg = "Unable to get allProducts - Try later";
-        console.log(this.errorProductMsg);
+        this.errorProductMsg = "Unable to get allProducts - Try later"
       }
     )
   }
@@ -108,7 +107,6 @@ export class StoreProductComponent implements OnInit {
       },
       (error) => {
         this.errorProductMsg = "Unable to get allDiscountProducts - Try later";
-        console.log(this.errorProductMsg);
       }
     )
   }
@@ -123,7 +121,6 @@ export class StoreProductComponent implements OnInit {
         this.cartAndItems = response;
       },
       error: error => {
-        console.log(error);
       }
     });
   }
@@ -134,13 +131,11 @@ export class StoreProductComponent implements OnInit {
     item.productId = productId;
     item.cartQty = 1;
     item.cartItemId = -1;
-    console.log(item);
     this.cartItemService.addNewItemService(item).subscribe({
       next: response => {
 
       },
       error: error => {
-        console.log(error);
       }
     });
   }

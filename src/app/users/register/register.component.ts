@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(first_name, last_name, username, email, password, address, contact, userImage).subscribe(
       data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         if((this.isSuccessful = true) || (this.isSignUpFailed = false)) {
@@ -50,16 +49,13 @@ export class RegisterComponent implements OnInit {
   }
 
   public uploadImage(imageInput: any) {
-    const reader = new FileReader(); console.log(reader);
+    const reader = new FileReader();
 
-    console.log(imageInput.target.files[0]);
     this.fileUploadService.onUpload(imageInput.target.files[0]).subscribe({
       next: async (response) => {
-        console.log(response);
         this.form.userImage = response;       
       },
       error: err => {
-        console.log(err);
       }
     })
 

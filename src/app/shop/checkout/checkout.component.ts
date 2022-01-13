@@ -10,6 +10,8 @@ import { AuthService } from "../../services/auth.service";
 import { CartService } from "../../services/cart.service";
 import { TokenStorageService } from "../../services/token-storage.service";
 import { ProductService } from "../../services/product.service";
+import { PurchasedItemService } from "../../services/purchased-item.service";
+import { PurchasedItem } from "../../models/purchased-item.model";
 
 @Component({
   selector: 'app-checkout',
@@ -26,31 +28,38 @@ export class CheckoutComponent implements OnInit {
   displayStyle: string = "";
   itemUpdating: CartItem = new CartItem();
   userId: number = 0;
+  newTransaction: Transaction = new Transaction();
   intervalId: any = null;
 
+
+
   constructor(private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private cartAndItemsService: CartAndItemsService,
-    private transactionService: TransactionService,
-    private authService: AuthService,
-    private cartService: CartService,
-    private cartItemService: CartItemService,
-    private tokenService: TokenStorageService,
-    private productService: ProductService) { }
+              private router: Router,
+              private cartAndItemsService: CartAndItemsService,
+              private transactionService: TransactionService,
+              private authService: AuthService,
+              private cartService: CartService,
+              private cartItemService: CartItemService,
+              private tokenService: TokenStorageService,
+              private productService: ProductService,
+              private purchasedItemService: PurchasedItemService) { }
 
   ngOnInit(): void {
     //Line below from authService is not working.
     this.userId = this.tokenService.getUser().user_id;
-    console.log(this.tokenService.getUser().user_id);
     if (this.userId <= 0) this.userId = 1; //Remove this line if not testing
-    this.displayAllCarts()
+    this.displayAllCarts();
   }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
+
   displayAllCarts() {
     this.cartAndItemsService.getCartAndItemsWithUserIdService(this.userId).subscribe((response) => {
       this.cartAndItems = response;
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
-      console.log(error);
     });
   }
   getItemsTotal(): any {
@@ -102,8 +111,6 @@ export class CheckoutComponent implements OnInit {
     this.cart.cartTotal = parseInt(this.getItemsTotal());
     this.cart.cartRemoved = true
     this.cart.cartPaid = true
-    console.log(this.cart);
-    console.log(this.cartAndItems);
     this.cartService.updateCartService(this.cart).subscribe((response) => {
       response;
     }, error => {
@@ -113,25 +120,26 @@ export class CheckoutComponent implements OnInit {
     this.transaction.transactionId = null;
     this.transaction.transactionDate = null;
     this.transactionService.sendTransaction(this.transaction).subscribe((response) => {
+      this.newTransaction = response;
+      this.updateMultiProducts();
+      this.addItemsToPurchaseHistory(response.transactionId);
+      this.intervalId = setInterval(() => {
+        this.displayStyle = "none";
+        this.router.navigate(['/confirmation-checkout/' + this.newTransaction.transactionId]);
+      }, 2000);
     }, error => {
       this.errorMsg = 'There was some internal error! Please try again later!';
     });
-    this.updateMultiProducts();
-    this.intervalId = setInterval(() => {
-      this.displayStyle = "none";
-      this.router.navigate(['/checkout-confirmation']);
-    }, 2000);
   }
-  ngOnDestroy() {
-    if(this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
+
+  // calculate the item has a discount
   calculateDiscountedItemCost(product: ProductAndDiscount): number {
     let cost = product.productCost;
     let discountPercentage = product.discountPercentage;
     return cost - (cost * (discountPercentage / 100));
   }
+
+  // return the item cost without any calculate
   calculateSingleItemCost(product: ProductAndDiscount): number {
     return product.productCost;
   }
@@ -140,6 +148,7 @@ export class CheckoutComponent implements OnInit {
     let discountPercentage = product.discountPercentage;
     return cost * (discountPercentage / 100);
   }
+  // calcSingleItem is the a function parametar
   calculateTotalCost(item: ItemProductAndDiscount, calcSingleItem: any) {
     return item.cartQty * calcSingleItem(item.productAndDiscount);
   }
@@ -157,6 +166,30 @@ export class CheckoutComponent implements OnInit {
       })
     });
   }
+
+  addItemsToPurchaseHistory(transactionId: number) {
+    let purchasedItems: PurchasedItem[] = [];
+    this.cartAndItems.cartItems.forEach((item) => {
+      let temp: PurchasedItem = new PurchasedItem();
+      temp.itemId = 0;
+      temp.transactionId = transactionId;
+      temp.userId = this.userId;
+      temp.cartId = item.cartId;
+      temp.productId = item.productId;
+      temp.itemQty = item.cartQty
+      temp.purchaseCost = this.calculateDiscountedItemCost(item.productAndDiscount);
+      purchasedItems.push(temp);
+    });
+    this.purchasedItemService.addPurchasedItems(purchasedItems).subscribe({
+      next: response => {
+
+      },
+      error: err => {
+
+      }
+    })
+  }
+
   toProductModel(item: ItemProductAndDiscount) {
     let product = new Product();
     product.productId = item.productAndDiscount.productId;

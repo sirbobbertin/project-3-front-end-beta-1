@@ -20,13 +20,42 @@ h2 {
   color: red;
 }
 #addProdBtn{
-  margin-left: 47%;
+  margin-left: 90%;
+}
+
+#displayProdBtn{
+  margin-top: 16px;
+  margin-right: 16px;
+  margin-left: 16px;
 }
 #displayDiscountBtn{
-  margin-bottom: 10px;
-   margin-left: 10px;
+  margin-top: 16px;
 }
-#displayProdBtn{
-  margin-bottom: 10px;
-   margin-left: 38.3%;
+
+.hide {
+  display: none;
+}
+
+.myDIV:hover + .hide {
+  display: block;
+  color: red;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext {
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
 }
